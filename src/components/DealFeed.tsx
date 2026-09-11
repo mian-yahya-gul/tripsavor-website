@@ -63,11 +63,6 @@ export default function DealFeed() {
           </Link>
         ))}
       </Reveal>
-
-      <p className="mt-6 text-center text-[11px] text-slate-400">
-        Deal prices are indicative estimates versus each route&apos;s typical fare — confirm the live
-        fare before booking.
-      </p>
     </section>
   );
 }

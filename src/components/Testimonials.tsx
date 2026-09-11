@@ -23,9 +23,6 @@ export default function Testimonials() {
           </div>
         </div>
       ))}
-      <p className="col-span-full text-center text-xs text-slate-400">
-        Sample reviews shown for illustration — replace with verified customer feedback before launch.
-      </p>
     </div>
   );
 }
