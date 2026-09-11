@@ -28,6 +28,7 @@ import {
   visaTypes,
 } from "@/data/umrahCalculator";
 import { groupRoutes } from "@/data/groupTickets";
+import { siteConfig } from "@/data/site";
 
 let rowIdCounter = 0;
 const nextRowId = () => `row-${++rowIdCounter}`;
@@ -195,6 +196,34 @@ export default function UmrahCalculator() {
   );
 
   const grandTotal = visaTotal + groupFlightTotal + hotelTotal + transportTotal;
+
+  const whatsappLink = useMemo(() => {
+    const paxLine = `${adults} adult(s)${children ? `, ${children} child(ren)` : ""}${
+      infants ? `, ${infants} infant(s)` : ""
+    }`;
+    const hotelLines = hotels
+      .filter((h) => h.city || h.hotel)
+      .map((h) => `- ${h.hotel || "Hotel TBC"} (${h.city || "city TBC"}), ${h.nights} night(s), ${h.rooms} room(s)`);
+    const transportLines = transportRows
+      .filter((t) => t.qty > 0)
+      .map((t) => {
+        const label = transportTypes.find((tt) => tt.id === t.type)?.label ?? t.type;
+        return `- ${label} × ${t.qty}`;
+      });
+
+    const lines = [
+      "Hi! I'd like to book an Umrah package with the following estimate:",
+      `Visa: ${visaType?.label ?? "Not selected"}`,
+      `Travelers: ${paxLine}`,
+      selectedFlight ? `Group flight: ${selectedFlight.route.airline} ${selectedFlight.route.route} on ${selectedFlight.date}` : null,
+      hotelLines.length ? `Hotels:\n${hotelLines.join("\n")}` : null,
+      transportLines.length ? `Transport:\n${transportLines.join("\n")}` : null,
+      `Estimated total: ${pkr(grandTotal)}`,
+      "Please confirm live rates and next steps.",
+    ].filter(Boolean);
+
+    return `https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(lines.join("\n"))}`;
+  }, [adults, children, infants, hotels, transportRows, visaType, selectedFlight, grandTotal]);
 
   const updateHotel = (id: string, patch: Partial<HotelRow>) =>
     setHotels((rows) => rows.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -509,24 +538,27 @@ export default function UmrahCalculator() {
               <Lock size={15} className="text-brand-600" />
               Secure booking — no payment is taken on this page
             </span>
-            <button
-              type="button"
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setRequested(true)}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-900 px-6 py-3 font-heading text-sm font-bold text-white transition hover:bg-brand-800 sm:w-auto"
             >
               Continue to Booking
               <span aria-hidden>→</span>
-            </button>
+            </a>
           </div>
 
           {requested && (
             <div className="flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
               <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-emerald-600" />
               <div>
-                <p className="font-heading text-sm font-bold text-emerald-900">Package summary received</p>
+                <p className="font-heading text-sm font-bold text-emerald-900">Package summary sent</p>
                 <p className="mt-1 text-sm text-emerald-800">
-                  Our Umrah desk will call or WhatsApp you shortly to confirm live hotel and
-                  flight rates and complete your booking — total estimate: {pkr(grandTotal)}.
+                  We opened WhatsApp with your package details prefilled — send the message and
+                  our Umrah desk will confirm live hotel and flight rates. Total estimate:{" "}
+                  {pkr(grandTotal)}.
                 </p>
               </div>
             </div>
