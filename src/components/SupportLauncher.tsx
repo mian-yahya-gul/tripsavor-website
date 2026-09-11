@@ -5,14 +5,10 @@ import { Headset, MessageCircle, Phone, PhoneCall, X } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import { hasContact, saveContact } from "@/lib/profiles";
 import { useContactProfile } from "@/components/useProfiles";
+import { buildWhatsAppLink, isAgentsOnline, replyEstimate } from "@/lib/whatsapp";
 
 const telHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
-const waHref = `https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}`;
-
-function replyEstimate() {
-  const h = new Date().getHours();
-  return h >= 8 && h < 23 ? "a few minutes" : "15–30 minutes";
-}
+const waHref = buildWhatsAppLink("Hi! I'd like some help with a booking.");
 
 export default function SupportLauncher() {
   const saved = useContactProfile();
@@ -49,8 +45,8 @@ export default function SupportLauncher() {
             <div>
               <p className="font-heading text-sm font-bold">TripSavor Support</p>
               <p className="mt-1 flex items-center gap-1.5 text-xs text-brand-100/80">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                Agents online now · replies in {replyEstimate()}
+                <span className={`h-2 w-2 rounded-full ${isAgentsOnline() ? "bg-emerald-400" : "bg-brand-300"}`} />
+                {isAgentsOnline() ? "Agents online now" : "Outside chat hours"} · replies in {replyEstimate()}
               </p>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Close support panel">
@@ -203,7 +199,11 @@ export default function SupportLauncher() {
       >
         {open ? <X size={22} /> : <Headset size={22} />}
         {!open && (
-          <span className="absolute right-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-400" />
+          <span
+            className={`absolute right-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white ${
+              isAgentsOnline() ? "bg-emerald-400" : "bg-brand-300"
+            }`}
+          />
         )}
       </button>
     </div>

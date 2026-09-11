@@ -3,6 +3,7 @@ import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import { siteConfig } from "@/data/site";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Contact Us — TripSavor",
@@ -15,7 +16,7 @@ const infoCards = [
     icon: MessageCircle,
     title: "WhatsApp",
     value: siteConfig.whatsapp,
-    href: `https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}`,
+    href: buildWhatsAppLink("Hi! I have a question."),
   },
   { icon: Mail, title: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
   { icon: Clock, title: "Support Hours", value: siteConfig.hours, href: undefined },
@@ -54,7 +55,23 @@ export default function ContactPage() {
 
         <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <h2 className="mb-4 font-heading text-xl font-bold text-brand-950">Send us a message</h2>
+            <div className="mb-6 flex flex-col items-start justify-between gap-3 rounded-2xl border border-brand-100 bg-brand-50/60 p-4 sm:flex-row sm:items-center">
+              <p className="text-sm text-brand-900">
+                <span className="font-semibold">Prefer to skip the form?</span> Message us directly on
+                WhatsApp and an agent will help you right there.
+              </p>
+              <a
+                href={buildWhatsAppLink("Hi! I have a question.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex shrink-0 items-center gap-2 whitespace-nowrap rounded-lg bg-brand-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-brand-700"
+              >
+                <MessageCircle size={15} />
+                Chat on WhatsApp
+              </a>
+            </div>
+
+            <h2 className="mb-4 font-heading text-xl font-bold text-brand-950">Or send us a message</h2>
             <ContactForm />
           </div>
 

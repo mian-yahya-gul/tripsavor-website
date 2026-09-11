@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { CalendarClock, HeadphonesIcon, PiggyBank, Users } from "lucide-react";
+import { CalendarClock, HeadphonesIcon, MessageCircle, PiggyBank, Users } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import GroupTicketForm from "@/components/GroupTicketForm";
 import GroupTicketsExplorer from "@/components/GroupTicketsExplorer";
 import { siteConfig } from "@/data/site";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Group Tickets — TripSavor",
@@ -70,13 +71,25 @@ export default function GroupTicketsPage() {
             <div className="rounded-2xl border border-slate-200 bg-white p-6">
               <h3 className="font-heading text-base font-bold text-brand-950">Prefer to talk it through?</h3>
               <p className="mt-2 text-sm text-slate-600">
-                Our Group Travel Desk can put together a quote over a call — helpful for
-                complex itineraries or tight timelines.
+                Our Group Travel Desk can put together a quote over WhatsApp or a call — often faster
+                than the form for complex itineraries or tight timelines.
               </p>
+              <a
+                href={buildWhatsAppLink("Hi! I'd like a quote for a group of 10+ passengers.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-brand-700"
+              >
+                <MessageCircle size={15} />
+                WhatsApp the Group Desk
+              </a>
               <div className="mt-4 space-y-2 text-sm">
-                <p className="font-semibold text-brand-800">Call: {siteConfig.phone}</p>
-                <p className="font-semibold text-brand-800">WhatsApp: {siteConfig.whatsapp}</p>
-                <p className="font-semibold text-brand-800">Email: {siteConfig.email}</p>
+                <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="block font-semibold text-brand-800 hover:underline">
+                  Call: {siteConfig.phone}
+                </a>
+                <a href={`mailto:${siteConfig.email}`} className="block font-semibold text-brand-800 hover:underline">
+                  Email: {siteConfig.email}
+                </a>
               </div>
             </div>
 

@@ -3,19 +3,18 @@
 import { useEffect, useState } from "react";
 import { Scale, X } from "lucide-react";
 import type { FlightOffer } from "@/lib/fares/types";
-import { siteConfig } from "@/data/site";
 import Price from "@/components/Price";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 function fmtDur(min: number) {
   return `${Math.floor(min / 60)}h ${String(min % 60).padStart(2, "0")}m`;
 }
 
 function waLink(o: FlightOffer) {
-  const msg = encodeURIComponent(
+  return buildWhatsAppLink(
     `Hi! I'd like to book ${o.origin} → ${o.destination}, ${o.cabin}, flight ${o.flightNumber} ` +
       `at ~PKR ${o.price.toLocaleString()}. Please confirm the live fare.`
   );
-  return `https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}?text=${msg}`;
 }
 
 function Row({ label, cells }: { label: string; cells: React.ReactNode[] }) {

@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { AlertCircle, FileSearch, Phone, Ticket } from "lucide-react";
+import { AlertCircle, FileSearch, MessageCircle, Phone, Ticket } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { siteConfig } from "@/data/site";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export default function ManageBookingPage() {
   const [searched, setSearched] = useState(false);
@@ -69,13 +70,28 @@ export default function ManageBookingPage() {
                   Double-check your reference <strong>{reference || "—"}</strong> and last name
                   for typos. If the problem continues, our support team can look it up directly.
                 </p>
-                <a
-                  href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
-                  className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline"
-                >
-                  <Phone size={14} />
-                  Call {siteConfig.phone}
-                </a>
+                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                  <a
+                    href={buildWhatsAppLink(
+                      `Hi! I'm trying to find my booking${reference ? ` (ref: ${reference})` : ""}${
+                        lastName ? ` under the name ${lastName}` : ""
+                      } but it's not showing up on the site.`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline"
+                  >
+                    <MessageCircle size={14} />
+                    WhatsApp us
+                  </a>
+                  <a
+                    href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline"
+                  >
+                    <Phone size={14} />
+                    Call {siteConfig.phone}
+                  </a>
+                </div>
               </div>
             </div>
           </div>

@@ -28,7 +28,8 @@ import {
   visaTypes,
 } from "@/data/umrahCalculator";
 import { groupRoutes } from "@/data/groupTickets";
-import { siteConfig } from "@/data/site";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
+import { useReplyStatus } from "@/lib/useReplyStatus";
 
 let rowIdCounter = 0;
 const nextRowId = () => `row-${++rowIdCounter}`;
@@ -158,6 +159,7 @@ const inputClass =
   "rounded-lg border border-slate-300 px-2.5 py-2 text-sm text-slate-700 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100";
 
 export default function UmrahCalculator() {
+  const replyStatus = useReplyStatus();
   const [visaTypeId, setVisaTypeId] = useState("");
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -222,7 +224,7 @@ export default function UmrahCalculator() {
       "Please confirm live rates and next steps.",
     ].filter(Boolean);
 
-    return `https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(lines.join("\n"))}`;
+    return buildWhatsAppLink(lines.join("\n"));
   }, [adults, children, infants, hotels, transportRows, visaType, selectedFlight, grandTotal]);
 
   const updateHotel = (id: string, patch: Partial<HotelRow>) =>
@@ -538,16 +540,19 @@ export default function UmrahCalculator() {
               <Lock size={15} className="text-brand-600" />
               Secure booking — no payment is taken on this page
             </span>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setRequested(true)}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-900 px-6 py-3 font-heading text-sm font-bold text-white transition hover:bg-brand-800 sm:w-auto"
-            >
-              Continue to Booking
-              <span aria-hidden>→</span>
-            </a>
+            <div className="flex w-full flex-col items-center gap-1 sm:w-auto sm:items-end">
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setRequested(true)}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-900 px-6 py-3 font-heading text-sm font-bold text-white transition hover:bg-brand-800 sm:w-auto"
+              >
+                Continue to Booking
+                <span aria-hidden>→</span>
+              </a>
+              {replyStatus && <p className="text-[11px] text-slate-400">Replies in {replyStatus.estimate}</p>}
+            </div>
           </div>
 
           {requested && (

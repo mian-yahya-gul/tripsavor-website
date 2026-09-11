@@ -4,8 +4,8 @@ import { useState } from "react";
 import { ArrowRight, ChevronDown, Leaf, Luggage, Plane, PlaneTakeoff, Scale } from "lucide-react";
 import type { FlightOffer } from "@/lib/fares/types";
 import { cityForCode } from "@/data/airports";
-import { siteConfig } from "@/data/site";
 import Price from "@/components/Price";
+import { buildWhatsAppLink, replyEstimate } from "@/lib/whatsapp";
 
 type FamilyId = "saver" | "standard" | "flex";
 
@@ -52,11 +52,10 @@ export default function FlightCard({
   const family = FARE_FAMILIES.find((f) => f.id === familyId)!;
   const price = Math.round((offer.price * family.mult) / 500) * 500;
 
-  const waMessage = encodeURIComponent(
+  const waLink = buildWhatsAppLink(
     `Hi! I'd like to book ${offer.origin} → ${offer.destination}, ${offer.cabin} (${family.label}), ` +
       `flight ${offer.flightNumber} at ~PKR ${price.toLocaleString()}. Please confirm the live fare.`
   );
-  const waLink = `https://wa.me/${siteConfig.whatsapp.replace(/[^0-9]/g, "")}?text=${waMessage}`;
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-brand-200 hover:shadow-md">
@@ -105,14 +104,17 @@ export default function FlightCard({
               {offer.isEstimate ? " · estimated" : ""}
             </p>
           </div>
-          <a
-            href={waLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="whitespace-nowrap rounded-lg bg-accent-500 px-5 py-2.5 text-sm font-bold text-brand-950 shadow-sm shadow-accent-500/30 transition hover:bg-accent-400"
-          >
-            Confirm on WhatsApp
-          </a>
+          <div className="flex flex-col items-end gap-1">
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-nowrap rounded-lg bg-accent-500 px-5 py-2.5 text-sm font-bold text-brand-950 shadow-sm shadow-accent-500/30 transition hover:bg-accent-400"
+            >
+              Confirm on WhatsApp
+            </a>
+            <p className="text-[11px] text-slate-400">Replies in {replyEstimate()} · no payment yet</p>
+          </div>
         </div>
       </div>
 
