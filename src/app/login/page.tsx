@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { LogIn, Mail, UserPlus } from "lucide-react";
+import { Info, LogIn, Mail, UserPlus } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import AccountPanel from "@/components/AccountPanel";
 
 export default function LoginPage() {
   const [tab, setTab] = useState<"login" | "signup">("login");
+  const [noticeShown, setNoticeShown] = useState(false);
 
   return (
     <>
@@ -37,7 +38,21 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
+          {noticeShown && (
+            <p className="mb-4 flex items-start gap-2 rounded-lg bg-brand-50 p-3 text-xs text-brand-900">
+              <Info size={14} className="mt-0.5 shrink-0 text-brand-600" />
+              Accounts aren&apos;t live yet — we&apos;ll email you when they are. In the meantime,
+              your details below are saved on this device so our forms can prefill them for you.
+            </p>
+          )}
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setNoticeShown(true);
+            }}
+            className="flex flex-col gap-4"
+          >
             {tab === "signup" && (
               <label className="flex flex-col gap-1.5 text-sm">
                 <span className="font-semibold text-slate-700">Full Name</span>
@@ -74,9 +89,13 @@ export default function LoginPage() {
                   <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-brand-600" />
                   Remember me
                 </label>
-                <a href="#" className="font-semibold text-brand-700 hover:underline">
+                <button
+                  type="button"
+                  onClick={() => setNoticeShown(true)}
+                  className="font-semibold text-brand-700 hover:underline"
+                >
                   Forgot password?
-                </a>
+                </button>
               </div>
             )}
 
@@ -95,7 +114,11 @@ export default function LoginPage() {
             <span className="h-px flex-1 bg-slate-200" />
           </div>
 
-          <button className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50">
+          <button
+            type="button"
+            onClick={() => setNoticeShown(true)}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
             <Mail size={16} />
             Continue with Email OTP
           </button>

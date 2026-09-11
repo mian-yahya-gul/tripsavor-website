@@ -19,6 +19,8 @@ export default function SupportLauncher() {
   const [open, setOpen] = useState(false);
   const [showCallback, setShowCallback] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -116,17 +118,34 @@ export default function SupportLauncher() {
             ) : (
               <form
                 key={hasContact(saved) ? "saved" : "blank"}
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   const fd = new FormData(e.currentTarget);
+                  const name = String(fd.get("name") ?? "");
+                  const phone = String(fd.get("phone") ?? "");
                   if (fd.get("remember")) {
-                    saveContact({
-                      name: String(fd.get("name") ?? ""),
-                      email: saved.email,
-                      phone: String(fd.get("phone") ?? ""),
-                    });
+                    saveContact({ name, email: saved.email, phone });
                   }
-                  setSent(true);
+                  setSending(true);
+                  setError(false);
+                  try {
+                    const res = await fetch("/api/lead", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        type: "callback",
+                        name,
+                        email: saved.email,
+                        phone,
+                      }),
+                    });
+                    if (!res.ok) throw new Error("Request failed");
+                    setSent(true);
+                  } catch {
+                    setError(true);
+                  } finally {
+                    setSending(false);
+                  }
                 }}
                 className="space-y-2 rounded-xl border border-slate-200 p-3"
               >
@@ -154,11 +173,17 @@ export default function SupportLauncher() {
                   />
                   Remember me on this device
                 </label>
+                {error && (
+                  <p className="text-[11px] font-medium text-red-600">
+                    Couldn&apos;t send that — try WhatsApp or call us instead.
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-brand-900 py-2 text-sm font-bold text-white transition hover:bg-brand-800"
+                  disabled={sending}
+                  className="w-full rounded-lg bg-brand-900 py-2 text-sm font-bold text-white transition hover:bg-brand-800 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Request callback
+                  {sending ? "Sending..." : "Request callback"}
                 </button>
               </form>
             )}

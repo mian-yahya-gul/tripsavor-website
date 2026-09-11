@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Send } from "lucide-react";
 import AirportField from "@/components/AirportField";
 import { clearContact, hasContact, saveContact } from "@/lib/profiles";
 import { useContactProfile } from "@/components/useProfiles";
+import { siteConfig } from "@/data/site";
 
 export default function GroupTicketForm() {
   const saved = useContactProfile();
@@ -13,6 +14,8 @@ export default function GroupTicketForm() {
   const [from, setFrom] = useState("KHI");
   const [to, setTo] = useState("JED");
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
 
   if (submitted) {
     return (
@@ -36,17 +39,45 @@ export default function GroupTicketForm() {
   return (
     <form
       key={prefilled ? "saved" : "blank"}
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
+        const name = String(fd.get("name") ?? "");
+        const email = String(fd.get("email") ?? "");
+        const phone = String(fd.get("phone") ?? "");
         if (fd.get("remember")) {
-          saveContact({
-            name: String(fd.get("name") ?? ""),
-            email: String(fd.get("email") ?? ""),
-            phone: String(fd.get("phone") ?? ""),
-          });
+          saveContact({ name, email, phone });
         }
-        setSubmitted(true);
+        setSending(true);
+        setError(false);
+        try {
+          const res = await fetch("/api/lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: "group-tickets",
+              name,
+              email,
+              phone,
+              details: {
+                "Group type": String(fd.get("groupType") ?? ""),
+                Passengers: String(fd.get("passengers") ?? ""),
+                Route: `${from} → ${to}`,
+                "Trip type": tripType,
+                Departure: String(fd.get("departDate") ?? ""),
+                Return: String(fd.get("returnDate") ?? ""),
+                Organization: String(fd.get("organization") ?? ""),
+              },
+              message: String(fd.get("requirements") ?? ""),
+            }),
+          });
+          if (!res.ok) throw new Error("Request failed");
+          setSubmitted(true);
+        } catch {
+          setError(true);
+        } finally {
+          setSending(false);
+        }
       }}
       className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"
     >
@@ -73,7 +104,10 @@ export default function GroupTicketForm() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-1.5 text-sm">
           <span className="font-semibold text-slate-700">Group Type</span>
-          <select className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100">
+          <select
+            name="groupType"
+            className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+          >
             <option>Umrah / Ziyarat Group</option>
             <option>Corporate Travel</option>
             <option>Wedding & Family Group</option>
@@ -86,6 +120,7 @@ export default function GroupTicketForm() {
           <span className="font-semibold text-slate-700">Number of Passengers</span>
           <input
             required
+            name="passengers"
             type="number"
             min={10}
             defaultValue={10}
@@ -113,6 +148,7 @@ export default function GroupTicketForm() {
           <span className="font-semibold text-slate-700">Departure Date</span>
           <input
             required
+            name="departDate"
             type="date"
             className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
@@ -121,6 +157,7 @@ export default function GroupTicketForm() {
           <span className="font-semibold text-slate-700">Return Date</span>
           <input
             disabled={tripType === "oneway"}
+            name="returnDate"
             type="date"
             className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 disabled:cursor-not-allowed disabled:bg-slate-50"
           />
@@ -129,6 +166,7 @@ export default function GroupTicketForm() {
         <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
           <span className="font-semibold text-slate-700">Group / Organization Name</span>
           <input
+            name="organization"
             placeholder="e.g. Al-Noor Travel Group, ABC Corporation"
             className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
@@ -184,6 +222,7 @@ export default function GroupTicketForm() {
         <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
           <span className="font-semibold text-slate-700">Additional Requirements</span>
           <textarea
+            name="requirements"
             rows={4}
             placeholder="Seating together, special meals, group check-in, hotel/visa add-ons, etc."
             className="resize-none rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
@@ -201,12 +240,21 @@ export default function GroupTicketForm() {
         Save my contact details on this device for next time
       </label>
 
+      {error && (
+        <p className="mt-4 flex items-center gap-2 text-sm font-medium text-red-600">
+          <AlertCircle size={15} />
+          Something went wrong sending your request — please try again, or reach us directly at{" "}
+          {siteConfig.phone}.
+        </p>
+      )}
+
       <button
         type="submit"
-        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 font-heading text-sm font-bold text-white shadow-md transition hover:bg-brand-700"
+        disabled={sending}
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 font-heading text-sm font-bold text-white shadow-md transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60"
       >
         <Send size={16} />
-        Request Group Fare
+        {sending ? "Sending..." : "Request Group Fare"}
       </button>
       <p className="mt-3 text-center text-xs text-slate-400">
         Group fares apply to bookings of 10 or more passengers traveling on the same route and

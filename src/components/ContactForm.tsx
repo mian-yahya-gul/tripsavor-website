@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Send } from "lucide-react";
 import { clearContact, hasContact, saveContact } from "@/lib/profiles";
 import { useContactProfile } from "@/components/useProfiles";
+import { siteConfig } from "@/data/site";
 
 export default function ContactForm() {
   const saved = useContactProfile();
   const prefilled = hasContact(saved);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
 
   if (submitted) {
     return (
@@ -32,17 +35,37 @@ export default function ContactForm() {
   return (
     <form
       key={prefilled ? "saved" : "blank"}
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
+        const name = String(fd.get("name") ?? "");
+        const email = String(fd.get("email") ?? "");
+        const phone = String(fd.get("phone") ?? "");
         if (fd.get("remember")) {
-          saveContact({
-            name: String(fd.get("name") ?? ""),
-            email: String(fd.get("email") ?? ""),
-            phone: String(fd.get("phone") ?? ""),
-          });
+          saveContact({ name, email, phone });
         }
-        setSubmitted(true);
+        setSending(true);
+        setError(false);
+        try {
+          const res = await fetch("/api/lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              type: "contact",
+              name,
+              email,
+              phone,
+              message: String(fd.get("message") ?? ""),
+              details: { Subject: String(fd.get("subject") ?? "") },
+            }),
+          });
+          if (!res.ok) throw new Error("Request failed");
+          setSubmitted(true);
+        } catch {
+          setError(true);
+        } finally {
+          setSending(false);
+        }
       }}
       className="grid grid-cols-1 gap-4 rounded-2xl border border-slate-200 bg-white p-6 sm:grid-cols-2 sm:p-8"
     >
@@ -94,7 +117,10 @@ export default function ContactForm() {
       </label>
       <label className="flex flex-col gap-1.5 text-sm sm:col-span-2">
         <span className="font-semibold text-slate-700">Subject</span>
-        <select className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100">
+        <select
+          name="subject"
+          className="rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+        >
           <option>New Booking Query</option>
           <option>Existing Booking Support</option>
           <option>Refunds &amp; Cancellations</option>
@@ -106,6 +132,7 @@ export default function ContactForm() {
         <span className="font-semibold text-slate-700">Message</span>
         <textarea
           required
+          name="message"
           rows={5}
           placeholder="Tell us how we can help..."
           className="resize-none rounded-lg border border-slate-300 px-3 py-2.5 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
@@ -122,12 +149,21 @@ export default function ContactForm() {
         Save my name, email &amp; phone on this device for next time
       </label>
 
+      {error && (
+        <p className="flex items-center gap-2 text-sm font-medium text-red-600 sm:col-span-2">
+          <AlertCircle size={15} />
+          Something went wrong sending your message — please try again, or reach us directly at{" "}
+          {siteConfig.phone}.
+        </p>
+      )}
+
       <button
         type="submit"
-        className="flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-heading text-sm font-bold text-white shadow-md transition hover:bg-brand-700 sm:col-span-2"
+        disabled={sending}
+        className="flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-heading text-sm font-bold text-white shadow-md transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-2"
       >
         <Send size={16} />
-        Send Message
+        {sending ? "Sending..." : "Send Message"}
       </button>
     </form>
   );
