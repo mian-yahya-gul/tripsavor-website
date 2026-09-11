@@ -196,7 +196,7 @@ export default function GroupTicketsExplorer() {
                             <td className="whitespace-nowrap px-5 py-3.5">
                               <span
                                 className={`flex items-center gap-1 font-semibold ${
-                                  f.meal ? "text-emerald-600" : "text-rose-500"
+                                  f.meal ? "text-emerald-600" : "text-red-500"
                                 }`}
                               >
                                 <UtensilsCrossed size={13} />

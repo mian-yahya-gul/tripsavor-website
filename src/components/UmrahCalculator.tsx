@@ -325,7 +325,7 @@ export default function UmrahCalculator() {
                     <button
                       type="button"
                       onClick={() => removeHotel(h.id)}
-                      className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50"
+                      className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-lg border border-red-200 text-red-500 hover:bg-red-50"
                       aria-label="Remove hotel"
                     >
                       <X size={13} />
@@ -453,7 +453,7 @@ export default function UmrahCalculator() {
                     <button
                       type="button"
                       onClick={() => removeTransport(t.id)}
-                      className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50"
+                      className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-lg border border-red-200 text-red-500 hover:bg-red-50"
                       aria-label="Remove transport"
                     >
                       <X size={13} />

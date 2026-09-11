@@ -4,16 +4,18 @@
   --background: #ffffff;
   --foreground: #101828;
 
-  /* TopTravels brand palette */
-  --color-brand-950: #04162f;
-  --color-brand-900: #08234e;
-  --color-brand-800: #0c3373;
-  --color-brand-700: #10459c;
-  --color-brand-600: #1657c4;
-  --color-brand-500: #2f74e6;
-  --color-brand-400: #5c93ee;
-  --color-brand-100: #e4edfd;
-  --color-brand-50: #f3f7fe;
+  /* TripSavor brand palette — hue-matched to the logo (#3a9ff1) */
+  --color-brand-950: #041c2f;
+  --color-brand-900: #082f4e;
+  --color-brand-800: #0c4573;
+  --color-brand-700: #105d9c;
+  --color-brand-600: #1676c4;
+  --color-brand-500: #2f94e6;
+  --color-brand-400: #5cadee;
+  --color-brand-300: #8bc5f4;
+  --color-brand-200: #b9dcf9;
+  --color-brand-100: #e4f2fd;
+  --color-brand-50: #f3f9fe;
 
   --color-accent-600: #d98a0d;
   --color-accent-500: #f5a524;
@@ -32,6 +34,8 @@
   --color-brand-600: var(--color-brand-600);
   --color-brand-500: var(--color-brand-500);
   --color-brand-400: var(--color-brand-400);
+  --color-brand-300: var(--color-brand-300);
+  --color-brand-200: var(--color-brand-200);
   --color-brand-100: var(--color-brand-100);
   --color-brand-50: var(--color-brand-50);
 
