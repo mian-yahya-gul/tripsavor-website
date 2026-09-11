@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "TripSavor",
-  url: "https://tripsavor.com",
+  url: "https://tripsavor-website.vercel.app",
   tagline: "Book Smarter. Fly Further.",
   phone: "+92 21 111 800 900",
   whatsapp: "+92 300 1234567",
