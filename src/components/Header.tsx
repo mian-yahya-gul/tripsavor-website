@@ -55,8 +55,8 @@ export default function Header() {
           <Image
             src="/tripsavor-logo.png"
             alt={siteConfig.name}
-            width={1654}
-            height={450}
+            width={1103}
+            height={300}
             priority
             className="h-9 w-auto object-contain sm:h-10"
           />

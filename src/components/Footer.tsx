@@ -13,8 +13,8 @@ export default function Footer() {
               <Image
                 src="/tripsavor-logo.png"
                 alt={siteConfig.name}
-                width={1654}
-                height={450}
+                width={1103}
+                height={300}
                 className="h-9 w-auto object-contain brightness-0 invert"
               />
             </div>
