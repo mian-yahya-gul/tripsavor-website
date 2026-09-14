@@ -15,7 +15,7 @@ export default function Footer() {
                 alt={siteConfig.name}
                 width={1654}
                 height={482}
-                className="h-9 w-auto object-contain brightness-0 invert"
+                className="h-11 w-auto object-contain brightness-0 invert"
               />
             </div>
             <p className="text-sm leading-relaxed text-brand-100/80">
