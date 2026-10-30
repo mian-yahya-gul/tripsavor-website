@@ -22,7 +22,16 @@ export default function PageHero({ eyebrow, title, description, image }: Props) 
     >
       {image ? (
         <>
-          <Image src={image} alt="" fill priority sizes="100vw" className="-z-10 object-cover" />
+          <Image
+            src={image}
+            alt=""
+            fill
+            loading="eager"
+            fetchPriority="high"
+            quality={60}
+            sizes="100vw"
+            className="-z-10 object-cover"
+          />
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-950/80 via-brand-950/55 to-brand-900/85" />
         </>
       ) : (

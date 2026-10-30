@@ -1,4 +1,5 @@
 import T from "@/components/T";
+import CookieSettingsLink from "@/components/CookieSettingsLink";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -16,6 +17,7 @@ export default function Footer() {
                 alt={siteConfig.name}
                 width={1654}
                 height={482}
+                sizes="170px"
                 className="h-11 w-auto object-contain brightness-0 invert"
               />
             </div>
@@ -106,7 +108,11 @@ export default function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-brand-100/60 sm:flex-row">
           <p>© {new Date().getFullYear()} TripSavor. <T>All rights reserved.</T></p>
-          <p><T>Secure checkout · Cards · Bank Transfer · Cash on Delivery</T></p>
+          <p className="flex flex-wrap items-center justify-center gap-x-3">
+            <T>Secure checkout · Cards · Bank Transfer · Cash on Delivery</T>
+            <span aria-hidden>·</span>
+            <CookieSettingsLink />
+          </p>
         </div>
       </div>
     </footer>

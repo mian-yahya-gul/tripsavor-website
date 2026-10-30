@@ -226,4 +226,11 @@ export const ur: Record<string, string> = {
   "Quick Answers": "فوری جوابات",
   "Booking flights from Pakistan: common questions": "پاکستان سے فلائٹ بکنگ: عام سوالات",
   "See all FAQs →": "تمام سوالات دیکھیں ←",
+  "Cookie preferences": "کوکیز کی ترجیحات",
+  "We value your privacy": "ہم آپ کی پرائیویسی کی قدر کرتے ہیں",
+  "We use essential storage to remember your language, currency and searches. With your permission we also use analytics to improve the site.":
+    "ہم آپ کی زبان، کرنسی اور تلاش یاد رکھنے کے لیے ضروری اسٹوریج استعمال کرتے ہیں۔ آپ کی اجازت سے سائٹ بہتر بنانے کے لیے اینالیٹکس بھی استعمال کرتے ہیں۔",
+  "Accept all": "سب قبول کریں",
+  "Essential only": "صرف ضروری",
+  "Cookie settings": "کوکی سیٹنگز",
 };

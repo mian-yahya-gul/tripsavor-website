@@ -78,11 +78,7 @@ export default function GroupTicketsExplorer() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-brand-950 via-brand-900 to-brand-700 pb-16 pt-8">
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url(/heroes/group-airport.jpg)" }}
-        />
+        <div aria-hidden className="group-hero-bg absolute inset-0 bg-cover bg-center" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-950/90 via-brand-950/60 to-brand-950/25" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-950/50 via-transparent to-brand-950/40" />
 

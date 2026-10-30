@@ -31,7 +31,7 @@ const benefits = [
   {
     icon: Users,
     title: "Seats Held Together",
-    image: "/heroes/group-airport.jpg",
+    image: "/heroes/group-airport-lg.jpg",
     desc: "We coordinate with the airline to seat your group together wherever possible.",
   },
   {

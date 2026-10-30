@@ -90,7 +90,7 @@ export default function AirportField({ label, value, onChange, exclude, classNam
   return (
     <div ref={rootRef} className={`relative ${className}`}>
       <div className="flex flex-col gap-0.5 rounded-lg px-3 py-2 transition hover:bg-brand-50">
-        <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">{label}</span>
+        <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">{label}</span>
         <input
           ref={inputRef}
           role="combobox"
@@ -114,9 +114,9 @@ export default function AirportField({ label, value, onChange, exclude, classNam
             setActiveIndex(0);
           }}
           onKeyDown={handleKeyDown}
-          className="w-full bg-transparent font-heading text-base font-semibold text-brand-900 outline-none placeholder:font-sans placeholder:text-sm placeholder:font-normal placeholder:text-slate-400"
+          className="w-full bg-transparent font-heading text-base font-semibold text-brand-900 outline-none placeholder:font-sans placeholder:text-sm placeholder:font-normal placeholder:text-slate-500"
         />
-        <span className="truncate text-[11px] text-slate-400">
+        <span className="truncate text-[11px] text-slate-500">
           {selected ? `${selected.name} · ${selected.country}` : " "}
         </span>
       </div>
@@ -128,13 +128,13 @@ export default function AirportField({ label, value, onChange, exclude, classNam
           className="absolute left-0 right-0 z-30 mt-1 max-h-64 overflow-auto rounded-xl border border-slate-200 bg-white py-1 text-left shadow-xl shadow-brand-950/10"
         >
           {results.length === 0 ? (
-            <li className="px-3 py-6 text-center text-sm text-slate-400">
+            <li className="px-3 py-6 text-center text-sm text-slate-500">
               No airports match &ldquo;{query}&rdquo;.
             </li>
           ) : (
             <>
               {!query && (
-                <li className="px-3 pb-1 pt-1.5 text-[11px] font-bold uppercase tracking-wide text-slate-400">
+                <li className="px-3 pb-1 pt-1.5 text-[11px] font-bold uppercase tracking-wide text-slate-500">
                   Popular
                 </li>
               )}
@@ -161,9 +161,9 @@ export default function AirportField({ label, value, onChange, exclude, classNam
                       <span className="truncate font-heading text-sm font-bold text-brand-950">
                         {airport.city}
                       </span>
-                      <span className="shrink-0 text-xs text-slate-400">{airport.country}</span>
+                      <span className="shrink-0 text-xs text-slate-500">{airport.country}</span>
                     </span>
-                    <span className="block truncate text-xs text-slate-400">{airport.name}</span>
+                    <span className="block truncate text-xs text-slate-500">{airport.name}</span>
                   </span>
                   <span className="shrink-0 rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-xs font-bold text-slate-500">
                     {airport.code}

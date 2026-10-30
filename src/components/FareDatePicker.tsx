@@ -217,11 +217,11 @@ export default function FareDatePicker({
           invalid ? "ring-1 ring-inset ring-red-400" : ""
         }`}
       >
-        <span className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
+        <span className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
           <CalendarDays size={12} /> {label}
         </span>
         <span className="font-heading text-base font-semibold text-brand-900">{selectedLabel}</span>
-        <span className="truncate text-[11px] text-slate-400">
+        <span className="truncate text-[11px] text-slate-500">
           {selectedFare > 0 ? `est. ${formatMoneyShort(selectedFare, currency)}` : " "}
         </span>
       </button>
@@ -259,7 +259,7 @@ export default function FareDatePicker({
             </button>
           </div>
 
-          <div className="grid grid-cols-7 text-center text-[10px] font-bold uppercase tracking-wide text-slate-400">
+          <div className="grid grid-cols-7 text-center text-[10px] font-bold uppercase tracking-wide text-slate-500">
             {WEEKDAYS.map((d) => (
               <span key={d} className="py-1">
                 {d}
@@ -302,7 +302,7 @@ export default function FareDatePicker({
                   {c.price > 0 && (
                     <span
                       className={`mt-0.5 text-[9px] leading-none ${
-                        isSelected ? "text-white/80" : isCheapest ? "text-emerald-600" : "text-slate-400"
+                        isSelected ? "text-white/80" : isCheapest ? "text-emerald-600" : "text-slate-500"
                       }`}
                     >
                       {formatMoneyShort(c.price, currency)}
@@ -313,7 +313,7 @@ export default function FareDatePicker({
             })}
           </div>
 
-          <p className="mt-2 flex items-center gap-1.5 border-t border-slate-100 pt-2 text-[11px] text-slate-400">
+          <p className="mt-2 flex items-center gap-1.5 border-t border-slate-100 pt-2 text-[11px] text-slate-500">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-100 ring-1 ring-emerald-300" />
             Lowest fare this month · estimates in {currency}
           </p>

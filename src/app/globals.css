@@ -135,7 +135,6 @@ h1, h2, h3, h4, h5, h6 {
 .aurora {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(80px);
   opacity: 0.45;
   animation: aurora-drift 18s ease-in-out infinite;
 }
@@ -144,14 +143,14 @@ h1, h2, h3, h4, h5, h6 {
   height: 38rem;
   left: -10rem;
   top: -12rem;
-  background: var(--color-brand-500);
+  background: radial-gradient(closest-side, var(--color-brand-500), transparent);
 }
 .aurora-b {
   width: 30rem;
   height: 30rem;
   right: -8rem;
   top: 2rem;
-  background: var(--color-accent-500);
+  background: radial-gradient(closest-side, var(--color-accent-500), transparent);
   opacity: 0.22;
   animation-delay: -6s;
 }
@@ -160,7 +159,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 34rem;
   left: 30%;
   bottom: -18rem;
-  background: var(--color-brand-400);
+  background: radial-gradient(closest-side, var(--color-brand-400), transparent);
   animation-delay: -11s;
 }
 
@@ -217,4 +216,14 @@ html[lang="ur"] .uppercase {
 html[lang="ur"] .hero-wrap {
   height: auto;
   overflow: visible;
+}
+
+/* Group tickets banner: small file on phones, larger one on wide screens (CSS backgrounds aren't auto-resized). */
+.group-hero-bg {
+  background-image: url(/heroes/group-airport-sm.jpg);
+}
+@media (min-width: 768px) {
+  .group-hero-bg {
+    background-image: url(/heroes/group-airport-lg.jpg);
+  }
 }

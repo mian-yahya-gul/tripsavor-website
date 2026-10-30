@@ -3,6 +3,7 @@ import { Inter, Noto_Nastaliq_Urdu, Poppins } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SupportLauncher from "@/components/SupportLauncher";
+import CookieBanner from "@/components/CookieBanner";
 import ThemeScript from "@/components/ThemeScript";
 import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/data/site";
@@ -23,6 +24,8 @@ const nastaliq = Noto_Nastaliq_Urdu({
   variable: "--font-urdu",
   subsets: ["arabic"],
   display: "swap",
+  // ~240 KB: only fetch it when a visitor actually switches to Urdu.
+  preload: false,
 });
 
 export const viewport: Viewport = {
@@ -143,6 +146,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <SupportLauncher />
+        <CookieBanner />
         <JsonLd data={orgLd} />
         <JsonLd data={siteLd} />
       </body>

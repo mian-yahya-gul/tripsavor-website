@@ -1,3 +1,5 @@
+import { getConsent } from "@/lib/consent";
+
 type Payload = Record<string, string | number | boolean | undefined>;
 
 /**
@@ -6,6 +8,8 @@ type Payload = Record<string, string | number | boolean | undefined>;
  */
 export function track(event: string, payload: Payload = {}) {
   if (typeof window === "undefined") return;
+  // Analytics is non-essential: nothing is sent until the visitor opts in.
+  if (getConsent() !== "all") return;
   const entry = { event, ...payload, ts: Date.now() };
   const w = window as unknown as { dataLayer?: unknown[] };
   if (Array.isArray(w.dataLayer)) {

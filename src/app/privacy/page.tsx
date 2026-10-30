@@ -48,7 +48,7 @@ export default function PrivacyPage() {
         {
           heading: "6. Cookies",
           body: [
-            "Our website may use cookies to remember your search preferences and improve site performance. You can disable cookies in your browser settings, though some features may not work as intended.",
+            "We use essential browser storage to remember your language, currency, saved searches and cookie choice. These do not need consent. We only use analytics if you choose Accept all in the cookie banner, and you can change your choice at any time with the Cookie settings link in the footer. You can also clear storage in your browser settings, though some features may not work as intended.",
           ],
         },
         {
