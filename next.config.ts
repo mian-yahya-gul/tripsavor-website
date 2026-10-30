@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -14,5 +15,8 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
 };
+
+// Makes Cloudflare bindings (D1, R2, ...) available under `next dev`.
+initOpenNextCloudflareForDev();
 
 export default nextConfig;

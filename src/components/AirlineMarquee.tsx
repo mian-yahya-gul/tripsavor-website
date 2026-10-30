@@ -1,38 +1,14 @@
 import T from "@/components/T";
-import fs from "node:fs";
-import path from "node:path";
 import Image from "next/image";
 import { Plane } from "lucide-react";
 import { airlinesWeCompare } from "@/data/site";
+import { airlineLogo } from "@/data/airlineLogos";
 
 /**
- * Renders a real logo file for an airline the moment one exists at
- * public/airlines/<slug>.(svg|png|webp) — see the README in that folder for
- * exact expected filenames. Falls back to a text wordmark badge for any
- * airline whose file hasn't been added yet, so the strip always renders
- * cleanly either way.
+ * Renders a real logo for an airline listed in src/data/airlineLogos.ts (files live in
+ * public/airlines). No filesystem access at runtime, so it works on Cloudflare
+ * Workers. Airlines without a logo fall back to a text wordmark badge.
  */
-
-const LOGO_DIR = path.join(process.cwd(), "public", "airlines");
-const EXTENSIONS = ["svg", "png", "webp"];
-
-function slugify(name: string) {
-  return name
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
-function findLogoUrl(name: string): string | null {
-  const slug = slugify(name);
-  for (const ext of EXTENSIONS) {
-    if (fs.existsSync(path.join(LOGO_DIR, `${slug}.${ext}`))) {
-      return `/airlines/${slug}.${ext}`;
-    }
-  }
-  return null;
-}
 
 /**
  * Airline wordmarks aren't cropped to a consistent visual weight — some fill
@@ -41,6 +17,14 @@ function findLogoUrl(name: string): string | null {
  * Oman Air, Malindo Air, Kuwait Airways). object-contain alone makes those
  * ones read as noticeably smaller, so nudge per-logo scale to even that out.
  */
+function slugify(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 const LOGO_SCALE: Record<string, number> = {
   "british-airways": 1.35,
   "oman-air": 1.3,
@@ -54,7 +38,7 @@ export default function AirlineMarquee() {
   const airlines = airlinesWeCompare.map((name) => ({
     name,
     slug: slugify(name),
-    logoUrl: findLogoUrl(name),
+    logoUrl: airlineLogo(name),
   }));
   const items = [...airlines, ...airlines];
 
