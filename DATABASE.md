@@ -17,14 +17,13 @@ npm run dev                   # next dev uses the same local D1 through the DB b
 npx wrangler d1 execute tripsavor-db --local --command "SELECT * FROM enquiries"
 ```
 
-## Production (needs your Cloudflare account — not run yet)
+## Production
+Created 2026-10-30 in the Cloudflare account of the logged-in Wrangler user (database_id is in `wrangler.jsonc`; an ID is not a secret).
+Migration `0001_init.sql` is applied remotely. To apply later migrations:
 ```bash
-npx wrangler login
-npx wrangler d1 create tripsavor-db          # prints the real database_id
-# add "database_id": "<printed id>" to the d1_databases entry in wrangler.jsonc
-npm run db:migrate:remote                    # applies migrations/ incrementally
+npm run db:migrate:remote
 ```
 Add new schema changes as `migrations/0002_*.sql` etc.; never edit an applied migration.
 
 ## Backup
-`npm run db:export -- backup.sql` exports the remote DB. The encrypted off-site backup routine is set up in Phase 8/10 and is **not implemented yet**.
+`npm run db:export -- backup.sql` exports the remote DB (tested: the export contains all tables). The encrypted off-site backup routine is set up in Phase 8/10 and is **not implemented yet**.
