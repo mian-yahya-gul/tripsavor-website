@@ -1,6 +1,7 @@
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 import { CalendarClock, HeadphonesIcon, MessageCircle, PiggyBank, Users } from "lucide-react";
+import Image from "next/image";
 import SectionHeading from "@/components/SectionHeading";
 import GroupTicketForm from "@/components/GroupTicketForm";
 import GroupTicketsExplorer from "@/components/GroupTicketsExplorer";
@@ -18,21 +19,25 @@ const benefits = [
   {
     icon: PiggyBank,
     title: "Discounted Group Fares",
+    image: "/heroes/explore.jpg",
     desc: "Special negotiated rates for bookings of 10 or more passengers on the same flight.",
   },
   {
     icon: CalendarClock,
     title: "Flexible Payment Plans",
+    image: "/heroes/login.jpg",
     desc: "Reserve seats with a deposit and pay the balance in installments before departure.",
   },
   {
     icon: Users,
     title: "Seats Held Together",
+    image: "/heroes/group-airport.jpg",
     desc: "We coordinate with the airline to seat your group together wherever possible.",
   },
   {
     icon: HeadphonesIcon,
     title: "Dedicated Coordinator",
+    image: "/heroes/contact.jpg",
     desc: "One point of contact manages your booking from quote through to check-in.",
   },
 ];
@@ -45,13 +50,19 @@ export default function GroupTicketsPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {benefits.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-slate-200 p-6 text-center transition hover:border-brand-200 hover:bg-brand-50/50">
-              <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-white">
+          {benefits.map(({ icon: Icon, title, desc, image }) => (
+            <div key={title} className="overflow-hidden rounded-2xl border border-slate-200 text-center transition hover:border-brand-200 hover:shadow-md">
+              <div className="relative h-32">
+                <Image src={image} alt="" fill sizes="(min-width:1024px) 25vw, 100vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-950/40 to-transparent" />
+              </div>
+              <div className="p-6 pt-0">
+              <span className="-mt-5 relative mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-white">
                 <Icon size={20} />
               </span>
               <h3 className="mt-4 font-heading text-base font-bold text-brand-950">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -71,7 +82,12 @@ export default function GroupTicketsPage() {
           </div>
 
           <div className="lg:col-span-2">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6">
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              <div className="relative h-40">
+                <Image src="/heroes/about.jpg" alt="" fill sizes="(min-width:1024px) 40vw, 100vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-950/50 to-transparent" />
+              </div>
+              <div className="p-6">
               <h3 className="font-heading text-base font-bold text-brand-950">Prefer to talk it through?</h3>
               <p className="mt-2 text-sm text-slate-600">
                 Our Group Travel Desk can put together a quote over WhatsApp or a call — often faster
@@ -93,6 +109,7 @@ export default function GroupTicketsPage() {
                 <a href={`mailto:${siteConfig.email}`} className="block font-semibold text-brand-800 hover:underline">
                   Email: {siteConfig.email}
                 </a>
+              </div>
               </div>
             </div>
 

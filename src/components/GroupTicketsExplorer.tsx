@@ -78,8 +78,13 @@ export default function GroupTicketsExplorer() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-brand-950 via-brand-900 to-brand-700 pb-16 pt-8">
-        <Image src="/heroes/group.jpg" alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-950/85 via-brand-950/60 to-brand-900/90" />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url(/heroes/group-airport.jpg)" }}
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-brand-950/90 via-brand-950/60 to-brand-950/25" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-950/50 via-transparent to-brand-950/40" />
 
         <div className="relative mx-auto max-w-7xl overflow-x-auto px-4 pb-8 sm:px-6 lg:px-8">
           <div className="flex w-max items-center gap-0.5 divide-x divide-white/10 sm:w-full sm:justify-between">
@@ -181,22 +186,29 @@ export default function GroupTicketsExplorer() {
             ) : (
               filteredRoutes.map((route) => (
                 <div key={route.route} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3">
-                    <span className="flex items-center gap-3 font-heading text-sm font-bold text-brand-700">
-                      <span className="relative h-11 w-16 shrink-0 overflow-hidden rounded-lg">
-                        <Image src={CATEGORY_PHOTO[route.category]} alt="" fill sizes="64px" className="object-cover" />
+                  <div className="relative h-28 sm:h-32">
+                    <Image
+                      src={CATEGORY_PHOTO[route.category]}
+                      alt=""
+                      fill
+                      sizes="(min-width:1024px) 1100px, 100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-brand-950/85 via-brand-950/55 to-brand-950/20" />
+                    <div className="relative flex h-full flex-wrap items-end justify-between gap-2 px-5 py-4">
+                      <span className="flex items-center gap-3 font-heading text-sm font-bold text-white">
+                        {airlineLogo(route.airline) && (
+                          <span className="relative h-9 w-16 shrink-0 rounded-lg bg-white p-1">
+                            <Image src={airlineLogo(route.airline)!} alt="" fill sizes="64px" className="object-contain p-1" />
+                          </span>
+                        )}
+                        {route.airline}
                       </span>
-                      {airlineLogo(route.airline) && (
-                        <span className="relative h-8 w-14 shrink-0">
-                          <Image src={airlineLogo(route.airline)!} alt="" fill sizes="56px" className="object-contain" />
-                        </span>
-                      )}
-                      {route.airline}
-                    </span>
-                    <span className="flex items-center gap-2 font-heading text-base font-bold text-brand-950">
-                      <Plane size={16} className="text-brand-600" />
-                      {route.route}
-                    </span>
+                      <span className="flex items-center gap-2 font-heading text-base font-bold text-white sm:text-lg">
+                        <Plane size={16} className="text-accent-400" />
+                        {route.route}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="overflow-x-auto">
