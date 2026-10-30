@@ -121,3 +121,66 @@ h1, h2, h3, h4, h5, h6 {
     transition: none !important;
   }
 }
+
+/* Hero backdrop */
+@keyframes aurora-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6%, -8%, 0) scale(1.15);
+  }
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.45;
+  animation: aurora-drift 18s ease-in-out infinite;
+}
+.aurora-a {
+  width: 38rem;
+  height: 38rem;
+  left: -10rem;
+  top: -12rem;
+  background: var(--color-brand-500);
+}
+.aurora-b {
+  width: 30rem;
+  height: 30rem;
+  right: -8rem;
+  top: 2rem;
+  background: var(--color-accent-500);
+  opacity: 0.22;
+  animation-delay: -6s;
+}
+.aurora-c {
+  width: 34rem;
+  height: 34rem;
+  left: 30%;
+  bottom: -18rem;
+  background: var(--color-brand-400);
+  animation-delay: -11s;
+}
+
+@keyframes word-in {
+  from {
+    transform: translateY(80%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.hero-word {
+  animation: word-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .hero-word {
+    animation: none;
+  }
+}

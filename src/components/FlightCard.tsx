@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, ChevronDown, Leaf, Luggage, Plane, PlaneTakeoff, Scale } from "lucide-react";
+import Image from "next/image";
+import { ChevronDown, Leaf, Luggage, Plane, PlaneTakeoff, Scale } from "lucide-react";
 import type { FlightOffer } from "@/lib/fares/types";
 import { cityForCode } from "@/data/airports";
+import { airlineLogo } from "@/data/airlineLogos";
 import Price from "@/components/Price";
 import { buildWhatsAppLink, replyEstimate } from "@/lib/whatsapp";
 
@@ -49,6 +51,7 @@ export default function FlightCard({
   const [open, setOpen] = useState(false);
   const [familyId, setFamilyId] = useState<FamilyId>("saver");
 
+  const logo = airlineLogo(offer.airline);
   const family = FARE_FAMILIES.find((f) => f.id === familyId)!;
   const price = Math.round((offer.price * family.mult) / 500) * 500;
 
@@ -61,8 +64,12 @@ export default function FlightCard({
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-brand-200 hover:shadow-md">
       <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-            <PlaneTakeoff size={20} />
+          <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-100 bg-white text-brand-600">
+            {logo ? (
+              <Image src={logo} alt={offer.airline} fill sizes="48px" className="object-contain p-1.5" />
+            ) : (
+              <PlaneTakeoff size={20} />
+            )}
           </span>
           <div>
             <div className="flex items-center gap-2">
@@ -74,23 +81,34 @@ export default function FlightCard({
                 </span>
               )}
             </div>
-            <div className="mt-1.5 flex items-center gap-2 text-sm text-slate-600">
-              <span className="font-semibold text-brand-900">{offer.departTime}</span>
-              <span className="text-slate-300">{offer.origin}</span>
-              <ArrowRight size={14} className="text-slate-300" />
-              <span className="font-semibold text-brand-900">
-                {offer.arriveTime}
-                {offer.arrivesNextDay && <sup className="ml-0.5 text-accent-600">+1</sup>}
-              </span>
-              <span className="text-slate-300">{offer.destination}</span>
+            <div className="mt-2 flex items-center gap-3 text-sm">
+              <div className="text-center">
+                <p className="font-heading text-lg font-bold leading-none text-brand-950">{offer.departTime}</p>
+                <p className="mt-1 text-[11px] font-semibold text-slate-400">{offer.origin}</p>
+              </div>
+              <div className="flex min-w-[96px] flex-1 flex-col items-center">
+                <p className="text-[11px] text-slate-400">{formatDuration(offer.durationMinutes)}</p>
+                <div className="relative my-1 h-px w-full bg-slate-300">
+                  <Plane size={12} className="absolute -top-[6px] left-1/2 -translate-x-1/2 rotate-90 bg-white text-brand-500" />
+                  {offer.stops > 0 && (
+                    <span className="absolute left-1/4 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-accent-500" />
+                  )}
+                </div>
+                <p className={`text-[11px] font-semibold ${offer.stops === 0 ? "text-emerald-600" : "text-accent-600"}`}>
+                  {offer.stops === 0
+                    ? "Non-stop"
+                    : `1 stop${offer.layoverAirport ? ` · ${offer.layoverAirport}` : ""}`}
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="font-heading text-lg font-bold leading-none text-brand-950">
+                  {offer.arriveTime}
+                  {offer.arrivesNextDay && <sup className="ml-0.5 text-[10px] text-accent-600">+1</sup>}
+                </p>
+                <p className="mt-1 text-[11px] font-semibold text-slate-400">{offer.destination}</p>
+              </div>
             </div>
-            <p className="mt-1 text-xs text-slate-400">
-              {formatDuration(offer.durationMinutes)} ·{" "}
-              {offer.stops === 0
-                ? "Non-stop"
-                : `1 stop${offer.layoverAirport ? ` · ${offer.layoverAirport}` : ""}`}{" "}
-              · {offer.cabin}
-            </p>
+            <p className="mt-1.5 text-xs text-slate-400">{offer.cabin}</p>
           </div>
         </div>
 
