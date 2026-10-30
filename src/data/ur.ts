@@ -1,5 +1,7 @@
 /** Urdu translations keyed by the exact English source string. */
-export const ur: Record<string, string> = {
+import { urPages } from "@/data/urPages";
+
+const urCore: Record<string, string> = {
   // Header
   Home: "ہوم",
   Explore: "دریافت کریں",
@@ -234,3 +236,5 @@ export const ur: Record<string, string> = {
   "Essential only": "صرف ضروری",
   "Cookie settings": "کوکی سیٹنگز",
 };
+
+export const ur: Record<string, string> = { ...urCore, ...urPages };

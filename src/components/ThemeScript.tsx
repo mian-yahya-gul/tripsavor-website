@@ -8,7 +8,8 @@ const script = `
     var t = localStorage.getItem('tripsavor:theme');
     var dark = t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('dark', !!dark);
-    var lang = localStorage.getItem('tripsavor:lang');
+    // The store saves JSON, so the value is the string "ur" including quotes.
+    var lang = JSON.parse(localStorage.getItem('tripsavor:lang') || 'null');
     if (lang === 'ur') {
       document.documentElement.setAttribute('lang', 'ur');
       document.documentElement.setAttribute('dir', 'rtl');

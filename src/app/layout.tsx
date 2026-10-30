@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SupportLauncher from "@/components/SupportLauncher";
 import CookieBanner from "@/components/CookieBanner";
+import UrduPageTranslator from "@/components/UrduPageTranslator";
 import ThemeScript from "@/components/ThemeScript";
 import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/data/site";
@@ -147,6 +148,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <SupportLauncher />
         <CookieBanner />
+        <UrduPageTranslator />
         <JsonLd data={orgLd} />
         <JsonLd data={siteLd} />
       </body>

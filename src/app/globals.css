@@ -227,3 +227,12 @@ html[lang="ur"] .hero-wrap {
     background-image: url(/heroes/group-airport-lg.jpg);
   }
 }
+
+/* Phone numbers and emails keep their left-to-right digit order inside Urdu (RTL) text */
+html[dir="rtl"] a[href^="tel:"],
+html[dir="rtl"] a[href^="mailto:"],
+html[dir="rtl"] a[href*="wa.me"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+}
