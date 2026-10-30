@@ -11,6 +11,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import CtaBanner from "@/components/CtaBanner";
 import BudgetPlanner from "@/components/BudgetPlanner";
+import WatchedRoutes from "@/components/WatchedRoutes";
 import HeroSky from "@/components/HeroSky";
 import HeroWord from "@/components/HeroWord";
 
@@ -44,6 +45,8 @@ export default function Home() {
       <div className="mt-12">
         <AirlineMarquee />
       </div>
+
+      <WatchedRoutes />
 
       <DealFeed />
 

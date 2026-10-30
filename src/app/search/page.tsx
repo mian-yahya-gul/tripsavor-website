@@ -3,8 +3,10 @@ import { ArrowLeftRight, Pencil } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import FlightResults from "@/components/FlightResults";
 import FlightResultsBrowser from "@/components/FlightResultsBrowser";
+import WatchPriceButton from "@/components/WatchPriceButton";
 import FlexDateStrip from "@/components/FlexDateStrip";
 import { airports } from "@/data/airports";
+import { estimateDailyFare } from "@/lib/fareCalendar";
 import { getFareProvider } from "@/lib/fares";
 import { decodeLegs } from "@/lib/searchParams";
 import type { Cabin, TripType } from "@/lib/fares/types";
@@ -149,13 +151,26 @@ export default async function SearchPage({
             <ArrowLeftRight size={14} />
             {origin} → {destination}
           </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {departDate && !sameCity && (
+              <WatchPriceButton
+                from={origin}
+                to={destination}
+                depart={departDate}
+                ret={returnDate}
+                tripType={tripType}
+                cabin={cabin}
+                savedPrice={estimateDailyFare({ origin, destination, date: departDate, cabin, tripType })}
+              />
+            )}
           <Link
-            href="/"
-            className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
-          >
-            <Pencil size={13} />
-            Edit search
-          </Link>
+              href="/"
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
+            >
+              <Pencil size={13} />
+              Edit search
+            </Link>
+          </div>
         </div>
 
         {sameCity ? (
