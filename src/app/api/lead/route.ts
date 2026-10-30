@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { siteConfig } from "@/data/site";
 import { getDb } from "@/lib/db";
 import { createEnquiry, markEnquiryEmailed } from "@/lib/db/enquiries";
+import { isCrossSite, isRateLimited } from "@/lib/rateLimit";
 import { validateLead, type LeadInput } from "@/lib/leadValidation";
 
 /**
@@ -67,6 +68,11 @@ async function sendViaResend(payload: LeadInput, ref?: string) {
 }
 
 export async function POST(request: Request) {
+  if (isCrossSite(request)) return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
+  if (await isRateLimited("LEAD_LIMITER", request)) {
+    return NextResponse.json({ ok: false, error: "Too many requests, please try again in a minute" }, { status: 429, headers: { "Retry-After": "60" } });
+  }
+
   let body: unknown;
   try {
     body = await request.json();

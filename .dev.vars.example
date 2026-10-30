@@ -3,3 +3,6 @@ NEXTJS_ENV=development
 # FILE_SIGNING_SECRET=  (min 32 random chars; generate with: openssl rand -hex 32)
 # RESEND_API_KEY=
 # LEAD_TO_EMAIL=
+# Local-only admin dev bypass (localhost + NEXTJS_ENV=development only)
+# ADMIN_EMAILS=you@example.com
+# ADMIN_DEV_EMAIL=you@example.com

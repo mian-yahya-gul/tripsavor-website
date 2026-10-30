@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/data/site";
 
-const PRIVATE = ["/manage-booking", "/login", "/search", "/api/"];
+const PRIVATE = ["/manage-booking", "/login", "/search", "/admin", "/api/"];
 
 // AI answer engines are welcome: the public pages are written to be quoted.
 const AI_BOTS = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-User", "PerplexityBot", "Google-Extended", "Applebot-Extended"];

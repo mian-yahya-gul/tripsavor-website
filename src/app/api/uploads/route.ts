@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { isCrossSite, isRateLimited } from "@/lib/rateLimit";
 import {
   MAX_FILES_PER_ENQUIRY,
   MAX_UPLOAD_BYTES,
@@ -12,9 +13,14 @@ import {
 /**
  * Customer document upload (visa / travel documents), attached to an existing enquiry.
  * The caller must know both the enquiry reference and the email used on it.
- * Files go to the private R2 bucket; metadata goes to D1. Rate limiting is added in Phase 6.
+ * Files go to the private R2 bucket; metadata goes to D1. Per-IP rate limited.
  */
 export async function POST(request: Request) {
+  if (isCrossSite(request)) return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
+  if (await isRateLimited("UPLOAD_LIMITER", request)) {
+    return NextResponse.json({ ok: false, error: "Too many uploads, please try again in a minute" }, { status: 429, headers: { "Retry-After": "60" } });
+  }
+
   // Cheap early rejection before buffering the body.
   const declared = Number(request.headers.get("content-length") ?? 0);
   if (declared > MAX_UPLOAD_BYTES + 64 * 1024) {
