@@ -22,6 +22,12 @@
       "migrations_dir": "migrations"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "tripsavor-private"
+    }
+  ],
   "observability": {
     "enabled": true
   }
