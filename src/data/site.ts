@@ -48,6 +48,7 @@ export const footerLinks = {
   company: [
     { href: "/about", label: "About Us" },
     { href: "/about#vision", label: "Vision Statement" },
+    { href: "/flights", label: "Flights from Pakistan" },
     { href: "/group-tickets", label: "Group Tickets" },
     { href: "/umrah-calculator", label: "Umrah Calculator" },
     { href: "/contact", label: "Contact Us" },

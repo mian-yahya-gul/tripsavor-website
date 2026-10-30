@@ -1,14 +1,17 @@
-import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import { siteConfig } from "@/data/site";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
-export const metadata: Metadata = {
-  title: "Contact Us — TripSavor",
-  description: "Get in touch with the TripSavor support team by phone, WhatsApp, email, or our contact form.",
-};
+export const metadata = pageMetadata({
+  title: "Contact TripSavor: Call, WhatsApp or Email 24/7",
+  description:
+    "Reach TripSavor's travel agents by phone, WhatsApp or email any time. Get a confirmed flight fare, change a booking or ask about Umrah and group travel.",
+  path: "/contact",
+});
 
 const infoCards = [
   { icon: Phone, title: "Call Us", value: siteConfig.phone, href: `tel:${siteConfig.phone.replace(/\s/g, "")}` },
@@ -25,6 +28,7 @@ const infoCards = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Contact", path: "/contact" }])} />
       <PageHero
         image="/heroes/contact.jpg"
         eyebrow="Contact Us"

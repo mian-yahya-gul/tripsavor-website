@@ -7,6 +7,7 @@ import FlightResultsBrowser from "@/components/FlightResultsBrowser";
 import WatchPriceButton from "@/components/WatchPriceButton";
 import FlexDateStrip from "@/components/FlexDateStrip";
 import { airports } from "@/data/airports";
+import { pageMetadata } from "@/lib/seo";
 import { estimateDailyFare } from "@/lib/fareCalendar";
 import { getFareProvider } from "@/lib/fares";
 import { decodeLegs } from "@/lib/searchParams";
@@ -21,6 +22,13 @@ function fmtDate(iso: string) {
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
 }
+
+export const metadata = pageMetadata({
+  title: "Flight Search Results",
+  description: "Compare flight fares on TripSavor.",
+  path: "/search",
+  noindex: true,
+});
 
 export default async function SearchPage({
   searchParams,

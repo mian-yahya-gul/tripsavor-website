@@ -1,12 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import { airlineLogo } from "@/data/airlineLogos";
 import { useState } from "react";
 import { Check, Copy, Plane, UtensilsCrossed } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import Price from "@/components/Price";
 import { type GroupCategoryId, groupCategories, groupRoutes } from "@/data/groupTickets";
 import { GroupCategoryArt } from "@/components/icons/GroupCategoryArt";
+
+const CATEGORY_PHOTO: Record<GroupCategoryId, string> = {
+  umrah: "/heroes/umrah.jpg",
+  uae: "/destinations/dubai.jpg",
+  ksa: "/destinations/jeddah.jpg",
+  uk: "/destinations/london.jpg",
+  muscat: "/destinations/muscat.jpg",
+  qatar: "/destinations/doha.jpg",
+  bahrain: "/destinations/bahrain.jpg",
+};
 
 function CategoryTile({
   id,
@@ -27,9 +38,12 @@ function CategoryTile({
       className={`group relative flex flex-col justify-end overflow-hidden rounded-2xl text-left transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-950/20 ${className}`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
-      <GroupCategoryArt
-        category={id}
-        className="absolute -right-3 -top-2 h-24 w-32 text-white/20 transition group-hover:scale-105"
+      <Image
+        src={CATEGORY_PHOTO[id]}
+        alt={label}
+        fill
+        sizes="(min-width:1024px) 22vw, 50vw"
+        className="object-cover transition duration-700 group-hover:scale-110"
       />
       <div className="relative bg-gradient-to-t from-black/70 via-black/10 to-transparent px-4 py-3">
         <span className="font-heading text-sm font-bold text-white sm:text-base">{label}</span>
@@ -168,7 +182,17 @@ export default function GroupTicketsExplorer() {
               filteredRoutes.map((route) => (
                 <div key={route.route} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 px-5 py-3">
-                    <span className="font-heading text-sm font-bold text-brand-700">{route.airline}</span>
+                    <span className="flex items-center gap-3 font-heading text-sm font-bold text-brand-700">
+                      <span className="relative h-11 w-16 shrink-0 overflow-hidden rounded-lg">
+                        <Image src={CATEGORY_PHOTO[route.category]} alt="" fill sizes="64px" className="object-cover" />
+                      </span>
+                      {airlineLogo(route.airline) && (
+                        <span className="relative h-8 w-14 shrink-0">
+                          <Image src={airlineLogo(route.airline)!} alt="" fill sizes="56px" className="object-contain" />
+                        </span>
+                      )}
+                      {route.airline}
+                    </span>
                     <span className="flex items-center gap-2 font-heading text-base font-bold text-brand-950">
                       <Plane size={16} className="text-brand-600" />
                       {route.route}

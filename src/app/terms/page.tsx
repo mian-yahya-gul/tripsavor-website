@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import LegalPage from "@/components/LegalPage";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions — TripSavor",
-  description: "The terms and conditions governing use of the TripSavor website and booking service.",
-};
+export const metadata = pageMetadata({
+  title: "Terms & Conditions",
+  description:
+    "The terms that apply when you search, book and pay for flights and travel services through TripSavor.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

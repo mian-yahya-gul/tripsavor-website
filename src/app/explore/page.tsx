@@ -1,16 +1,19 @@
-import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 import PageHero from "@/components/PageHero";
 import ExploreGrid from "@/components/ExploreGrid";
 
-export const metadata: Metadata = {
-  title: "Explore Destinations — TripSavor",
+export const metadata = pageMetadata({
+  title: "Explore Destinations by Budget from Pakistan",
   description:
-    "Set a starting city and a budget, and see every destination TripSavor covers ranked by estimated fare.",
-};
+    "Set your departure city, month and budget and see every destination TripSavor covers ranked by estimated fare, from Dubai and Jeddah to London and Bangkok.",
+  path: "/explore",
+});
 
 export default function ExplorePage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Explore", path: "/explore" }])} />
       <PageHero
         image="/heroes/explore.jpg"
         eyebrow="Explore"

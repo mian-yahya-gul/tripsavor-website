@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 import { CalendarClock, HeadphonesIcon, MessageCircle, PiggyBank, Users } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import GroupTicketForm from "@/components/GroupTicketForm";
@@ -6,11 +7,12 @@ import GroupTicketsExplorer from "@/components/GroupTicketsExplorer";
 import { siteConfig } from "@/data/site";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
-export const metadata: Metadata = {
-  title: "Group Tickets — TripSavor",
+export const metadata = pageMetadata({
+  title: "Group Flight Tickets for Umrah, UAE, KSA, UK & More",
   description:
-    "Book discounted group flight tickets for Umrah groups, corporate travel, weddings, and tours of 10 or more passengers.",
-};
+    "Discounted group flight fares for 10+ travellers: Umrah and Hajj groups, UAE, Saudi Arabia, UK, Muscat, Qatar and Bahrain. Seats held together with a dedicated coordinator.",
+  path: "/group-tickets",
+});
 
 const benefits = [
   {
@@ -38,6 +40,7 @@ const benefits = [
 export default function GroupTicketsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "Group Tickets", path: "/group-tickets" }])} />
       <GroupTicketsExplorer />
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">

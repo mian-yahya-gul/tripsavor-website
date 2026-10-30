@@ -192,4 +192,38 @@ export const ur: Record<string, string> = {
   "Terms & Conditions": "شرائط و ضوابط",
   "Privacy Policy": "پرائیویسی پالیسی",
   FAQs: "اکثر پوچھے گئے سوالات",
+  // Page heroes
+  "About TripSavor": "ٹرپ سیور کے بارے میں",
+  "Making air travel simple, honest, and affordable": "ہوائی سفر کو آسان، سچا اور سستا بنانا",
+  "We started TripSavor to fix a frustrating booking experience — confusing fares, unreachable support, and surprise fees.":
+    "ہم نے ٹرپ سیور اس لیے شروع کیا کہ بکنگ کا پریشان کن تجربہ بدلا جائے — الجھے ہوئے کرائے، نہ ملنے والی سپورٹ اور اچانک فیسیں۔",
+  "We're here to help": "ہم آپ کی مدد کے لیے حاضر ہیں",
+  "Reach our support team by phone, WhatsApp, or the form below — most queries are answered within the hour.":
+    "فون، واٹس ایپ یا نیچے دیے گئے فارم کے ذریعے ہماری سپورٹ ٹیم سے رابطہ کریں — زیادہ تر سوالات کا جواب ایک گھنٹے میں۔",
+  "Where can your budget take you?": "آپ کا بجٹ آپ کو کہاں لے جا سکتا ہے؟",
+  "Pick a starting city, a month, and a budget — we'll rank every destination we cover by estimated fare.":
+    "روانگی کا شہر، مہینہ اور بجٹ چنیں — ہم ہر منزل کو تخمینہ شدہ کرائے کے مطابق ترتیب دیں گے۔",
+  Support: "سپورٹ",
+  "Frequently asked questions": "اکثر پوچھے گئے سوالات",
+  "Can't find what you're looking for? Reach out on our Contact page and we'll help directly.":
+    "جو چاہیے وہ نہیں ملا؟ ہمارے رابطہ صفحے پر پیغام کریں، ہم براہِ راست مدد کریں گے۔",
+  "Your Account": "آپ کا اکاؤنٹ",
+  "SignUp / Login": "سائن اپ / لاگ اِن",
+  "Save your travelers' details and manage all your bookings in one place.":
+    "مسافروں کی تفصیلات محفوظ کریں اور تمام بکنگز ایک ہی جگہ سنبھالیں۔",
+  "Retrieve your itinerary": "اپنا شیڈول حاصل کریں",
+  "Enter your booking reference and last name exactly as they appear on your e-ticket.":
+    "اپنا بکنگ ریفرنس اور آخری نام وہی لکھیں جو ای ٹکٹ پر درج ہے۔",
+  TripSavor: "ٹرپ سیور",
+  "Umrah Package Calculator": "عمرہ پیکج کیلکولیٹر",
+  "Build your own Umrah package and see a live cost estimate — visa, flights, hotels, and transport, all in one place.":
+    "اپنا عمرہ پیکج خود بنائیں اور لاگت کا تخمینہ دیکھیں — ویزا، فلائٹس، ہوٹل اور ٹرانسپورٹ سب ایک جگہ۔",
+  "Search Results": "تلاش کے نتائج",
+  Routes: "روٹس",
+  "Cheap flights from Pakistan": "پاکستان سے سستی فلائٹس",
+  "Pick your departure city and destination to see the cheapest months and compare airlines.":
+    "روانگی کا شہر اور منزل چنیں، سستے مہینے دیکھیں اور ایئرلائنز کا موازنہ کریں۔",
+  "Quick Answers": "فوری جوابات",
+  "Booking flights from Pakistan: common questions": "پاکستان سے فلائٹ بکنگ: عام سوالات",
+  "See all FAQs →": "تمام سوالات دیکھیں ←",
 };

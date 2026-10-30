@@ -1,9 +1,11 @@
 import T from "@/components/T";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, TrendingDown } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import Price from "@/components/Price";
+import { CITY_PHOTOS } from "@/data/cityPhotos";
 import { getDeals } from "@/lib/deals";
 import { buildSearchQuery } from "@/lib/searchParams";
 
@@ -34,8 +36,21 @@ export default function DealFeed() {
               children: 0,
               infants: 0,
             })}`}
-            className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-950/10"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-950/10"
           >
+            <div className="relative h-28 w-full bg-gradient-to-br from-brand-700 to-brand-400">
+              {CITY_PHOTOS[d.destination] && (
+                <Image
+                  src={CITY_PHOTOS[d.destination]}
+                  alt={d.destCity}
+                  fill
+                  sizes="(min-width:1024px) 33vw, 100vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-950/50 to-transparent" />
+            </div>
+            <div className="flex flex-1 flex-col p-5">
             <div className="flex items-start justify-between gap-3">
               <span className="font-heading text-lg font-bold text-brand-950">
                 {d.originCity} <span className="text-slate-300">→</span> {d.destCity}
@@ -61,6 +76,7 @@ export default function DealFeed() {
               <T>See flights</T>
               <ArrowRight size={14} />
             </span>
+            </div>
           </Link>
         ))}
       </Reveal>

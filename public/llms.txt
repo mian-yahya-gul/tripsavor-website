@@ -1,0 +1,16 @@
+# TripSavor
+
+> TripSavor is a Pakistan-based flight booking agency. It compares fares across leading airlines for flights from Karachi, Lahore and Islamabad, and offers group tickets and Umrah package planning with 24/7 human support by phone and WhatsApp.
+
+## Key pages
+- [Flights from Pakistan](https://tripsavor-website.vercel.app/flights): route pages with indicative fares and cheapest months, e.g. Karachi to Dubai.
+- [Explore destinations by budget](https://tripsavor-website.vercel.app/explore): rank destinations by estimated fare for a month and budget.
+- [Group tickets](https://tripsavor-website.vercel.app/group-tickets): discounted fares for groups of 10 or more.
+- [Umrah calculator](https://tripsavor-website.vercel.app/umrah-calculator): build and price an Umrah package.
+- [FAQs](https://tripsavor-website.vercel.app/faqs): booking, payment, cancellation and refund answers.
+- [Contact](https://tripsavor-website.vercel.app/contact): phone, WhatsApp, email and office address.
+
+## Facts
+- Fares shown on the site are indicative estimates; the team confirms the live fare before any payment.
+- Payment options: debit/credit card, bank transfer, cash on delivery in select cities.
+- Languages: English and Urdu.

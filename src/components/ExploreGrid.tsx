@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import AirportField from "@/components/AirportField";
 import Price, { useCurrency } from "@/components/Price";
+import { CITY_PHOTOS } from "@/data/cityPhotos";
 import { airports, cityForCode, type AirportRegion } from "@/data/airports";
 import { estimateDailyFare } from "@/lib/fareCalendar";
 import { formatMoney } from "@/lib/currency";
@@ -192,9 +194,19 @@ export default function ExploreGrid() {
               className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-950/10"
             >
               <div
-                className={`relative flex h-24 items-end bg-gradient-to-br ${REGION_GRADIENT[a.region]} p-3`}
+                className={`relative flex h-32 items-end overflow-hidden bg-gradient-to-br ${REGION_GRADIENT[a.region]} p-3`}
               >
-                <span className="font-heading text-lg font-bold leading-tight text-white">
+                {CITY_PHOTOS[a.code] && (
+                  <Image
+                    src={CITY_PHOTOS[a.code]}
+                    alt={a.city}
+                    fill
+                    sizes="(min-width:1024px) 25vw, 50vw"
+                    className="object-cover transition duration-700 group-hover:scale-110"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-950/75 to-transparent" />
+                <span className="relative font-heading text-lg font-bold leading-tight text-white">
                   {a.city}
                 </span>
                 {i === 0 && (

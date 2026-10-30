@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import LegalPage from "@/components/LegalPage";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — TripSavor",
-  description: "How TripSavor collects, uses, and protects your personal information.",
-};
+export const metadata = pageMetadata({
+  title: "Privacy Policy",
+  description:
+    "How TripSavor collects, uses and protects your personal information when you search and book flights.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

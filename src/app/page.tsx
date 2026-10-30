@@ -13,6 +13,10 @@ import Testimonials from "@/components/Testimonials";
 import CtaBanner from "@/components/CtaBanner";
 import BudgetPlanner from "@/components/BudgetPlanner";
 import WatchedRoutes from "@/components/WatchedRoutes";
+import FaqAccordion from "@/components/FaqAccordion";
+import JsonLd from "@/components/JsonLd";
+import { faqs } from "@/data/faqs";
+import { faqLd } from "@/lib/seo";
 import HeroSky from "@/components/HeroSky";
 import HeroWord from "@/components/HeroWord";
 
@@ -106,6 +110,27 @@ export default function Home() {
             <Testimonials />
           </Reveal>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-4 pb-4 pt-4 sm:px-6 lg:px-8">
+        <JsonLd data={faqLd(faqs.slice(0, 6))} />
+        <SectionHeading
+          eyebrow="Quick Answers"
+          title="Booking flights from Pakistan: common questions"
+          center
+        />
+        <div className="mt-8">
+          <FaqAccordion items={faqs.slice(0, 6)} />
+        </div>
+        <p className="mt-4 text-center text-sm">
+          <Link href="/faqs" className="font-bold text-brand-700 hover:text-brand-900">
+            See all FAQs →
+          </Link>
+          {" · "}
+          <Link href="/flights" className="font-bold text-brand-700 hover:text-brand-900">
+            Browse flights from Karachi, Lahore &amp; Islamabad →
+          </Link>
+        </p>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">

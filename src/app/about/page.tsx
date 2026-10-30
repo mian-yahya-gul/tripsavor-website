@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 import { Compass, HeartHandshake, Target, Users2 } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -6,10 +7,12 @@ import CtaBanner from "@/components/CtaBanner";
 import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 
-export const metadata: Metadata = {
-  title: "About Us — TripSavor",
-  description: "Learn about TripSavor' story, mission, and vision for flight booking in Pakistan.",
-};
+export const metadata = pageMetadata({
+  title: "About TripSavor: Pakistan's Human-Assisted Flight Booking Agency",
+  description:
+    "Meet TripSavor: a Pakistan-based travel agency offering transparent fares, flexible payments including cash on delivery, and real human support by phone and WhatsApp.",
+  path: "/about",
+});
 
 const stats: {
   to?: number;
@@ -50,6 +53,7 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbLd([{ name: "About", path: "/about" }])} />
       <PageHero
         image="/heroes/about.jpg"
         eyebrow="About TripSavor"
