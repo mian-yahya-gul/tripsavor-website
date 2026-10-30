@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -19,8 +20,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-sm leading-relaxed text-brand-100/80">
-              Pakistan-based flight booking made simple — transparent fares, real human
-              support, and a booking flow that gets you from search to ticket in minutes.
+              <T>Pakistan-based flight booking made simple — transparent fares, real human support, and a booking flow that gets you from search to ticket in minutes.</T>
             </p>
             <div className="mt-5 flex gap-3">
               {[
@@ -42,13 +42,13 @@ export default function Footer() {
 
           <div>
             <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wide text-white">
-              Company
+              <T>Company</T>
             </h3>
             <ul className="space-y-2.5 text-sm">
               {footerLinks.company.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-brand-100/80 transition hover:text-accent-400">
-                    {l.label}
+                    <T>{l.label}</T>
                   </Link>
                 </li>
               ))}
@@ -57,13 +57,13 @@ export default function Footer() {
 
           <div>
             <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wide text-white">
-              Legal
+              <T>Legal</T>
             </h3>
             <ul className="space-y-2.5 text-sm">
               {footerLinks.legal.map((l) => (
                 <li key={l.label}>
                   <Link href={l.href} className="text-brand-100/80 transition hover:text-accent-400">
-                    {l.label}
+                    <T>{l.label}</T>
                   </Link>
                 </li>
               ))}
@@ -72,7 +72,7 @@ export default function Footer() {
 
           <div>
             <h3 className="mb-4 font-heading text-sm font-semibold uppercase tracking-wide text-white">
-              Get in Touch
+              <T>Get in Touch</T>
             </h3>
             <ul className="space-y-3 text-sm text-brand-100/80">
               <li className="flex items-start gap-2.5">
@@ -93,7 +93,7 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-white/10 pt-6">
           <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-brand-100/60">
-            We compare fares across leading airlines
+            <T>We compare fares across leading airlines</T>
           </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-brand-100/70">
             {airlinesWeCompare.map((a) => (
@@ -105,8 +105,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-brand-100/60 sm:flex-row">
-          <p>© {new Date().getFullYear()} TripSavor. All rights reserved.</p>
-          <p>Secure checkout · Cards · Bank Transfer · Cash on Delivery</p>
+          <p>© {new Date().getFullYear()} TripSavor. <T>All rights reserved.</T></p>
+          <p><T>Secure checkout · Cards · Bank Transfer · Cash on Delivery</T></p>
         </div>
       </div>
     </footer>

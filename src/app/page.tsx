@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import FlightSearchWidget from "@/components/FlightSearchWidget";
@@ -22,16 +23,15 @@ export default function Home() {
         <HeroSky />
         <div className="relative mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <span className="inline-block rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-accent-400">
-            Pakistan&apos;s Trusted Flight Booking Partner
+            <T>Pakistan&apos;s Trusted Flight Booking Partner</T>
           </span>
           <h1 className="mx-auto mt-4 max-w-3xl font-heading text-4xl font-extrabold leading-tight text-white sm:text-5xl">
-            Your next flight to <HeroWord />
+            <T>Your next flight to</T> <HeroWord />
             <br />
-            starts <span className="text-accent-400">here.</span>
+            <T>starts</T> <span className="text-accent-400"><T>here.</T></span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-brand-100/80">
-            Compare fares across leading airlines and lock in your seat in minutes — with a
-            real support team behind every booking.
+            <T>Compare fares across leading airlines and lock in your seat in minutes — with a real support team behind every booking.</T>
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export default function Home() {
             href="/explore"
             className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 transition hover:text-brand-900"
           >
-            Explore every destination by budget <span aria-hidden>→</span>
+            <T>Explore every destination by budget</T> <span aria-hidden className="rtl:-scale-x-100 inline-block">→</span>
           </Link>
         </div>
       </section>
@@ -117,13 +117,13 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-6 sm:flex-row">
           <p className="text-sm text-slate-600">
-            Already have a booking? Retrieve your itinerary and manage it online.
+            <T>Already have a booking? Retrieve your itinerary and manage it online.</T>
           </p>
           <Link
             href="/manage-booking"
             className="shrink-0 rounded-lg bg-brand-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-800"
           >
-            Manage My Booking
+            <T>Manage My Booking</T>
           </Link>
         </div>
       </section>

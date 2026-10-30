@@ -184,3 +184,37 @@ h1, h2, h3, h4, h5, h6 {
     animation: none;
   }
 }
+
+/* Urdu (RTL): Nastaliq needs generous line-height, and directional icons should mirror */
+html[lang="ur"] body,
+html[lang="ur"] h1,
+html[lang="ur"] h2,
+html[lang="ur"] h3,
+html[lang="ur"] h4,
+html[lang="ur"] button,
+html[lang="ur"] input,
+html[lang="ur"] select {
+  font-family: var(--font-urdu), var(--font-sans), sans-serif;
+}
+html[lang="ur"] body {
+  line-height: 2;
+}
+html[lang="ur"] h1,
+html[lang="ur"] h2,
+html[lang="ur"] h3 {
+  line-height: 1.9 !important;
+}
+html[lang="ur"] .hero-word {
+  line-height: 1.6;
+}
+html[lang="ur"] .tracking-wide,
+html[lang="ur"] .tracking-\[0\.2em\] {
+  letter-spacing: 0;
+}
+html[lang="ur"] .uppercase {
+  text-transform: none;
+}
+html[lang="ur"] .hero-wrap {
+  height: auto;
+  overflow: visible;
+}

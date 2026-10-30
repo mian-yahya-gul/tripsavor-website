@@ -9,6 +9,7 @@ import { airports } from "@/data/airports";
 import { CITY_PHOTOS } from "@/data/cityPhotos";
 import { estimateDailyFare } from "@/lib/fareCalendar";
 import { formatMoney } from "@/lib/currency";
+import { useT } from "@/lib/i18n";
 import { buildSearchQuery } from "@/lib/searchParams";
 
 const PRESETS = [50000, 100000, 150000, 250000];
@@ -27,6 +28,7 @@ function monthOptions() {
 /** Homepage "Where can I go for my budget?" — ranks destinations by estimated fare from Karachi. */
 export default function BudgetPlanner() {
   const currency = useCurrency();
+  const t = useT();
   const months = useMemo(() => monthOptions(), []);
   const [budget, setBudget] = useState(100000);
   const [month, setMonth] = useState(months[0].value);
@@ -62,14 +64,14 @@ export default function BudgetPlanner() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,320px)_1fr]">
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent-400">
-            <Sparkles size={12} /> Budget planner
+            <Sparkles size={12} /> {t("Budget planner")}
           </span>
           <h3 className="mt-3 font-heading text-2xl font-extrabold leading-tight sm:text-3xl">
-            Where can I go for{" "}
-            <span className="text-accent-400">{formatMoney(budget, currency)}</span>?
+            {t("Where can I go for")}{" "}
+            <span className="text-accent-400">{formatMoney(budget, currency)}</span>؟
           </h3>
           <p className="mt-2 text-sm text-brand-100/80">
-            Set your return-ticket budget from Karachi and see every place you can fly.
+            {t("Set your return-ticket budget from Karachi and see every place you can fly.")}
           </p>
 
           <input
@@ -98,7 +100,7 @@ export default function BudgetPlanner() {
           </div>
 
           <label className="mt-5 block text-xs font-semibold uppercase tracking-wide text-brand-100/70">
-            Travelling in
+            {t("Travelling in")}
             <select
               value={month}
               onChange={(e) => setMonth(e.target.value)}
@@ -114,19 +116,19 @@ export default function BudgetPlanner() {
 
           <p className="mt-5 text-sm text-brand-100/80">
             <strong className="font-heading text-xl text-white">{results.length}</strong>{" "}
-            destination{results.length === 1 ? "" : "s"} within budget
+            {t("destinations within budget")}
           </p>
           <Link
             href="/explore"
             className="mt-2 inline-flex items-center gap-1.5 text-sm font-bold text-accent-400 transition hover:text-accent-300"
           >
-            See all on the explore map <ArrowRight size={14} />
+            {t("See all on the explore map")} <ArrowRight size={14} className="rtl:rotate-180" />
           </Link>
         </div>
 
         {shown.length === 0 ? (
           <div className="flex items-center justify-center rounded-2xl border border-dashed border-white/20 p-10 text-center text-sm text-brand-100/80">
-            Nothing at this budget yet — nudge the slider up a little.
+            {t("Nothing at this budget yet — nudge the slider up a little.")}
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -163,9 +165,9 @@ export default function BudgetPlanner() {
                   <div className="absolute inset-x-0 bottom-0 p-3">
                     <p className="flex items-center gap-1 truncate text-[10px] font-semibold uppercase tracking-wide text-white/70">
                       <MapPin size={10} />
-                      {a.country}
+                      {t(a.country)}
                     </p>
-                    <p className="font-heading text-base font-bold">{a.city}</p>
+                    <p className="font-heading text-base font-bold">{t(a.city)}</p>
                     <Price pkr={price} className="text-sm font-bold text-accent-400" />
                   </div>
                 </Link>
@@ -175,7 +177,7 @@ export default function BudgetPlanner() {
         )}
       </div>
       <p className="mt-5 text-[11px] text-brand-100/60">
-        Indicative round-trip economy estimates from Karachi — tap a destination for a live search.
+        {t("Indicative round-trip economy estimates from Karachi — tap a destination for a live search.")}
       </p>
     </div>
   );

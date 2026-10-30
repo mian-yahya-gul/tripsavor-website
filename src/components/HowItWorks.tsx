@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import { CreditCard, PlaneTakeoff, Search } from "lucide-react";
 
 const steps = [
@@ -32,8 +33,8 @@ export default function HowItWorks() {
               {step}
             </span>
           </div>
-          <h3 className="mt-4 font-heading text-lg font-bold text-brand-950">{title}</h3>
-          <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-600">{desc}</p>
+          <h3 className="mt-4 font-heading text-lg font-bold text-brand-950"><T>{title}</T></h3>
+          <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-600"><T>{desc}</T></p>
           {i < steps.length - 1 && (
             <div className="absolute right-[-1rem] top-8 hidden h-px w-8 border-t-2 border-dashed border-brand-200 sm:block" />
           )}

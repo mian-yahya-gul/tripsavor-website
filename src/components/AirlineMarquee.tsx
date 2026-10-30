@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
@@ -60,9 +61,9 @@ export default function AirlineMarquee() {
   return (
     <section className="border-y border-brand-100 bg-white py-8">
       <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.2em] text-brand-700">
-        Popular Airlines
+        <T>Popular Airlines</T>
       </p>
-      <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+      <div dir="ltr" className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
         <div className="marquee-track flex w-max items-center gap-10 sm:gap-14">
           {items.map(({ name, slug, logoUrl }, i) => (
             <span

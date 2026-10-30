@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import CurrencyControl from "@/components/CurrencyControl";
+import LangToggle from "@/components/LangToggle";
+import { useT } from "@/lib/i18n";
 
 const iconNavLinks = [
   { href: "/", label: "Home", icon: Home },
@@ -34,6 +36,7 @@ const iconNavLinks = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const t = useT();
 
   return (
     <header className="sticky top-0 z-50 border-b border-brand-100 bg-white/95 backdrop-blur">
@@ -44,7 +47,9 @@ export default function Header() {
             {siteConfig.phone}
           </a>
           <span className="hidden text-brand-400 sm:inline">|</span>
-          <span className="hidden sm:inline">{siteConfig.hours}</span>
+          <span className="hidden sm:inline">{t(siteConfig.hours)}</span>
+          <span className="text-brand-400">|</span>
+          <LangToggle />
           <span className="text-brand-400">|</span>
           <CurrencyControl />
         </div>
@@ -84,7 +89,7 @@ export default function Header() {
                 }`}
               >
                 <Icon size={17} className={active ? "text-brand-700" : "text-brand-600"} />
-                {label}
+                {t(label)}
               </Link>
             );
           })}
@@ -102,7 +107,7 @@ export default function Header() {
                 className="flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-bold text-brand-900/80 hover:bg-brand-50 hover:text-brand-700"
               >
                 <Icon size={17} className="text-brand-600" />
-                {label}
+                {t(label)}
               </Link>
             ))}
           </nav>

@@ -17,6 +17,7 @@ import { buildSearchQuery, type MultiCityLeg } from "@/lib/searchParams";
 import { detectOriginFromTimeZone, getPreferredOrigin, setPreferredOrigin } from "@/lib/originPref";
 import { track } from "@/lib/analytics";
 import { getAirport } from "@/data/airports";
+import { useLang, useT } from "@/lib/i18n";
 
 const MAX_LEGS = 5;
 
@@ -42,6 +43,8 @@ const RETURN_GAP_DAYS = 7;
 
 export default function FlightSearchWidget() {
   const router = useRouter();
+  const t = useT();
+  const lang = useLang();
   const [tripType, setTripType] = useState<TripType>("roundtrip");
   const [from, setFrom] = useState("KHI");
   const [to, setTo] = useState("DXB");
@@ -178,7 +181,10 @@ export default function FlightSearchWidget() {
     setTo(from);
   };
 
-  const travelerLabel = `${adults + children} Traveler${adults + children > 1 ? "s" : ""}, ${cabin}`;
+  const travelerLabel =
+    lang === "ur"
+      ? `${adults + children} مسافر، ${t(cabin)}`
+      : `${adults + children} Traveler${adults + children > 1 ? "s" : ""}, ${cabin}`;
 
   return (
     <div className="w-full rounded-2xl bg-white p-4 shadow-xl shadow-brand-950/10 sm:p-6">
@@ -197,7 +203,7 @@ export default function FlightSearchWidget() {
               tripType === value ? "bg-brand-600 text-white shadow-sm" : "text-slate-600 hover:text-brand-700"
             }`}
           >
-            {label}
+            {t(label)}
           </button>
         ))}
       </div>
@@ -215,13 +221,13 @@ export default function FlightSearchWidget() {
                     exclude={leg.to}
                   />
                   <AirportField
-                    label="To"
+                    label={t("To")}
                     value={leg.to}
                     onChange={(v) => updateLeg(i, { to: v })}
                     exclude={leg.from}
                   />
                   <FareDatePicker
-                    label="Depart"
+                    label={t("Depart")}
                     value={leg.depart}
                     onChange={(v) => {
                       updateLeg(i, { depart: v });
@@ -252,7 +258,7 @@ export default function FlightSearchWidget() {
                 className="flex items-center gap-2 rounded-xl border border-dashed border-brand-300 px-4 py-2.5 text-sm font-bold text-brand-700 transition hover:bg-brand-50"
               >
                 <Plus size={15} />
-                Add another flight
+                {t("Add another flight")}
               </button>
             )}
           </div>
@@ -260,7 +266,7 @@ export default function FlightSearchWidget() {
           <>
             <div className="relative grid grid-cols-1 gap-3 rounded-xl border border-slate-200 p-1 sm:grid-cols-2 lg:col-span-5">
               <AirportField
-                label="From"
+                label={t("From")}
                 value={from}
                 onChange={(v) => {
                   setFrom(v);
@@ -268,7 +274,7 @@ export default function FlightSearchWidget() {
                 }}
                 exclude={to}
               />
-              <AirportField label="To" value={to} onChange={setTo} exclude={from} />
+              <AirportField label={t("To")} value={to} onChange={setTo} exclude={from} />
               <button
                 onClick={swap}
                 aria-label="Swap origin and destination"
@@ -280,7 +286,7 @@ export default function FlightSearchWidget() {
 
             <div className="grid grid-cols-2 gap-3 rounded-xl border border-slate-200 p-1 lg:col-span-4">
               <FareDatePicker
-                label="Depart"
+                label={t("Depart")}
                 value={depart}
                 onChange={handleDepartChange}
                 origin={from}
@@ -290,7 +296,7 @@ export default function FlightSearchWidget() {
                 invalid={dateError}
               />
               <FareDatePicker
-                label="Return"
+                label={t("Return")}
                 value={ret}
                 onChange={setRet}
                 min={depart || undefined}
@@ -326,8 +332,8 @@ export default function FlightSearchWidget() {
               ].map(([label, sub, val, setter, min]) => (
                 <div key={label as string} className="flex items-center justify-between py-2">
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">{label as string}</p>
-                    <p className="text-xs text-slate-400">{sub as string}</p>
+                    <p className="text-sm font-semibold text-slate-800">{t(label as string)}</p>
+                    <p className="text-xs text-slate-400">{t(sub as string)}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <button
@@ -347,7 +353,7 @@ export default function FlightSearchWidget() {
                 </div>
               ))}
               <div className="mt-2 border-t border-slate-100 pt-3">
-                <p className="mb-2 text-sm font-semibold text-slate-800">Cabin Class</p>
+                <p className="mb-2 text-sm font-semibold text-slate-800">{t("Cabin Class")}</p>
                 <div className="flex gap-2">
                   {(["Economy", "Business"] as Cabin[]).map((c) => (
                     <button
@@ -357,7 +363,7 @@ export default function FlightSearchWidget() {
                         cabin === c ? "bg-brand-600 text-white" : "bg-brand-50 text-slate-600"
                       }`}
                     >
-                      {c}
+                      {t(c)}
                     </button>
                   ))}
                 </div>
@@ -366,7 +372,7 @@ export default function FlightSearchWidget() {
                 onClick={() => setTravelersOpen(false)}
                 className="mt-4 w-full rounded-lg bg-brand-900 py-2 text-sm font-semibold text-white"
               >
-                Done
+                {t("Done")}
               </button>
             </div>
           )}
@@ -384,19 +390,19 @@ export default function FlightSearchWidget() {
       <div className="mt-4 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
         <label className="flex items-center gap-2 text-sm text-slate-500">
           <input type="checkbox" className="h-4 w-4 rounded border-slate-300 text-brand-600" />
-          Apply airline promo code
+          {t("Apply airline promo code")}
         </label>
         <button
           onClick={handleSearch}
           className="flex items-center justify-center gap-2 rounded-xl bg-accent-500 px-8 py-3 font-heading text-base font-bold text-brand-950 shadow-md shadow-accent-500/30 transition hover:bg-accent-400"
         >
           <Search size={18} />
-          Search Flights
+          {t("Search Flights")}
         </button>
       </div>
 
       {dateError && (
-        <p className="mt-3 text-sm font-medium text-red-600">Pick a departure date to search flights.</p>
+        <p className="mt-3 text-sm font-medium text-red-600">{t("Pick a departure date to search flights.")}</p>
       )}
       {multiError && (
         <p className="mt-3 text-sm font-medium text-red-600">
@@ -408,7 +414,7 @@ export default function FlightSearchWidget() {
         <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
           <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400">
             <History size={13} />
-            Recent
+            {t("Recent")}
           </span>
           {recents.map((r) => (
             <button
@@ -434,7 +440,7 @@ export default function FlightSearchWidget() {
             className="flex items-center gap-1 rounded-full px-2 py-1.5 text-xs font-semibold text-slate-400 transition hover:text-red-600"
           >
             <X size={13} />
-            Clear
+            {t("Clear")}
           </button>
         </div>
       )}

@@ -12,17 +12,19 @@ import {
   removeWatch,
   subscribeWatch,
 } from "@/lib/priceWatch";
+import { useT } from "@/lib/i18n";
 import { buildSearchQuery } from "@/lib/searchParams";
 
 /** Homepage strip: routes the visitor is watching, with movement since they saved them. */
 export default function WatchedRoutes() {
   const list = useSyncExternalStore(subscribeWatch, getWatchSnapshot, getWatchServerSnapshot);
+  const t = useT();
   if (list.length === 0) return null;
 
   return (
     <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
       <h2 className="flex items-center gap-2 font-heading text-xl font-bold text-brand-950">
-        <BellRing size={18} className="text-accent-500" /> Your watched fares
+        <BellRing size={18} className="text-accent-500" /> {t("Your watched fares")}
       </h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((w) => {
@@ -81,7 +83,7 @@ export default function WatchedRoutes() {
                 })}`}
                 className="mt-3 block text-sm font-bold text-brand-700 hover:text-brand-900"
               >
-                Check live fares →
+                {t("Check live fares →")}
               </Link>
             </div>
           );

@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import Link from "next/link";
 import { ArrowRight, TrendingDown } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
@@ -57,7 +58,7 @@ export default function DealFeed() {
             </p>
 
             <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-brand-700 transition group-hover:text-brand-900">
-              See flights
+              <T>See flights</T>
               <ArrowRight size={14} />
             </span>
           </Link>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { destinations } from "@/data/destinations";
 import Price from "@/components/Price";
+import { useT } from "@/lib/i18n";
 import { buildSearchQuery } from "@/lib/searchParams";
 
 function isoIn(days: number) {
@@ -15,6 +16,7 @@ function isoIn(days: number) {
 }
 
 export default function DestinationsGrid() {
+  const t = useT();
   const depart = useMemo(() => isoIn(21), []);
   const ret = useMemo(() => isoIn(28), []);
 
@@ -56,20 +58,20 @@ export default function DestinationsGrid() {
           <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
             <p className="flex items-center gap-1 text-[11px] font-semibold uppercase tracking-wide text-white/70">
               <MapPin size={11} />
-              {d.country}
+              {t(d.country)}
             </p>
             <h3 className={`mt-1 font-heading font-bold text-white ${i === 0 ? "text-2xl sm:text-3xl" : "text-lg"}`}>
-              {d.city}
+              {t(d.city)}
             </h3>
             <p
               className={`mt-1 hidden text-xs text-white/75 transition-all duration-300 sm:block ${
                 i === 0 ? "" : "max-h-0 opacity-0 group-hover:max-h-10 group-hover:opacity-100"
               }`}
             >
-              {d.tagline}
+              {t(d.tagline)}
             </p>
             <p className="mt-2 inline-flex items-center rounded-full bg-white/15 px-2.5 py-1 text-xs text-white backdrop-blur">
-              from&nbsp;
+              {t("from")}&nbsp;
               <Price pkr={d.fromPrice} className="font-bold text-accent-400" />
             </p>
           </div>

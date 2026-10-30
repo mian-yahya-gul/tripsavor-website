@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import { BadgeCheck, Clock, ShieldCheck, Wallet } from "lucide-react";
 
 const items = [
@@ -19,8 +20,8 @@ export default function TrustStrip() {
             <Icon size={18} />
           </span>
           <div>
-            <p className="text-sm font-semibold text-brand-950">{title}</p>
-            <p className="text-xs text-slate-500">{desc}</p>
+            <p className="text-sm font-semibold text-brand-950"><T>{title}</T></p>
+            <p className="text-xs text-slate-500"><T>{desc}</T></p>
           </div>
         </div>
       ))}

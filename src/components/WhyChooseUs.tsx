@@ -1,3 +1,4 @@
+import T from "@/components/T";
 import { CreditCard, HeadphonesIcon, RefreshCcw, ShieldCheck, TicketCheck, TrendingDown } from "lucide-react";
 
 const features = [
@@ -41,8 +42,8 @@ export default function WhyChooseUs() {
           <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 text-white">
             <Icon size={20} />
           </span>
-          <h3 className="mt-4 font-heading text-lg font-bold text-brand-950">{title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+          <h3 className="mt-4 font-heading text-lg font-bold text-brand-950"><T>{title}</T></h3>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600"><T>{desc}</T></p>
         </div>
       ))}
     </div>
