@@ -11,6 +11,7 @@ export default function CookieBanner() {
   const t = useT();
   // Wait for hydration so the banner never flashes for returning visitors.
   const [ready, setReady] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot hydration gate
   useEffect(() => setReady(true), []);
 
   if (!ready || consent !== "") return null;
