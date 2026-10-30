@@ -13,7 +13,10 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "db:migrate:local": "wrangler d1 migrations apply tripsavor-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply tripsavor-db --remote",
-    "db:export": "wrangler d1 export tripsavor-db --remote --output"
+    "db:export": "wrangler d1 export tripsavor-db --remote --output",
+    "typecheck": "tsc --noEmit",
+    "smoke": "scripts/smoke-test.sh",
+    "backup": "scripts/backup-d1.sh"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.15",
@@ -33,5 +36,8 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.156.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

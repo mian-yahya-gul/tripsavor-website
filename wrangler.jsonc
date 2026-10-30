@@ -33,11 +33,11 @@
     { "name": "UPLOAD_LIMITER", "namespace_id": "1002", "simple": { "limit": 10, "period": 60 } }
   ],
   // Non-secret admin config. Empty = admin is locked (fails closed). Fill in before go-live — see ADMIN.md.
+  // ADMIN_EMAILS (staff emails) is a *secret*: set it with `wrangler secret put ADMIN_EMAILS`, not here.
   "vars": {
     "ADMIN_HOSTNAME": "",
     "CF_ACCESS_TEAM_DOMAIN": "",
-    "CF_ACCESS_AUD": "",
-    "ADMIN_EMAILS": ""
+    "CF_ACCESS_AUD": ""
   },
   "observability": {
     "enabled": true

@@ -7,7 +7,7 @@
 - Status changes are written atomically with a history row in `enquiry_events` (actor = staff email). File links expire after 5 minutes; every issue is logged.
 - `ADMIN_DEV_EMAIL` is a local-only bypass: it works only on `localhost` **and** when `NEXTJS_ENV=development`. It lives in `.dev.vars` (never deployed). Do not set it in Cloudflare.
 
-## Config to fill in before go-live (wrangler.jsonc `vars`, all currently empty = admin locked)
+## Config to fill in before go-live (empty = admin locked). `ADMIN_EMAILS` is a secret (`wrangler secret put ADMIN_EMAILS`); the rest are `vars` in `wrangler.jsonc`
 | Var | Meaning |
 |---|---|
 | `ADMIN_HOSTNAME` | e.g. `admin.<your-domain>` (admin answers only on this host) |

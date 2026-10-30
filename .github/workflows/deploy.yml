@@ -1,0 +1,32 @@
+name: Deploy to Cloudflare
+# Disabled until you set the repository variable DEPLOY_ENABLED=true and the secrets below.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    environment: production        # add required reviewers on this environment for a manual approval gate
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - name: Apply D1 migrations (incremental, safe to re-run)
+        run: npx wrangler d1 migrations apply tripsavor-db --remote
+      - name: Build and deploy Worker
+        run: npm run deploy
