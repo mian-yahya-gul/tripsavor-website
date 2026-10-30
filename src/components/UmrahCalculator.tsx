@@ -128,6 +128,7 @@ function CounterField({
       <div className="flex items-center justify-center gap-3">
         <button
           type="button"
+          aria-label={`Decrease ${label}`}
           onClick={() => onChange(Math.max(min, value - 1))}
           className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-300 text-slate-600 hover:border-brand-500 hover:text-brand-700"
         >
@@ -136,6 +137,7 @@ function CounterField({
         <span className="w-5 font-heading text-lg font-bold text-brand-950">{value}</span>
         <button
           type="button"
+          aria-label={`Increase ${label}`}
           onClick={() => onChange(Math.min(20, value + 1))}
           className="flex h-7 w-7 items-center justify-center rounded-lg border border-slate-300 text-slate-600 hover:border-brand-500 hover:text-brand-700"
         >
@@ -149,7 +151,7 @@ function CounterField({
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="flex flex-col gap-1 text-xs">
-      <span className="font-semibold uppercase tracking-wide text-slate-400">{label}</span>
+      <span className="font-semibold uppercase tracking-wide text-slate-500">{label}</span>
       {children}
     </label>
   );
@@ -254,6 +256,7 @@ export default function UmrahCalculator() {
                 </span>
                 <p className="mb-2 text-center text-xs font-bold uppercase tracking-wide text-slate-500">Visa Type</p>
                 <select
+                  aria-label="Visa type"
                   value={visaTypeId}
                   onChange={(e) => setVisaTypeId(e.target.value)}
                   className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-sm text-slate-700 outline-none focus:border-brand-500"
@@ -301,6 +304,7 @@ export default function UmrahCalculator() {
                   </button>
                 </div>
                 <select
+                  aria-label="Group flight"
                   value={selectedFlightRef}
                   onChange={(e) => setSelectedFlightRef(e.target.value)}
                   className={`${inputClass} w-full`}
@@ -361,7 +365,7 @@ export default function UmrahCalculator() {
                     >
                       <X size={13} />
                     </button>
-                    <div className="grid grid-cols-2 gap-3 pr-8 sm:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-3 pr-8 sm:grid-cols-2 lg:grid-cols-4">
                       <Field label="Location">
                         <select
                           value={h.city}
@@ -480,7 +484,7 @@ export default function UmrahCalculator() {
             {transportRows.length > 0 && (
               <div className="mb-4 space-y-3">
                 {transportRows.map((t) => (
-                  <div key={t.id} className="relative grid grid-cols-2 gap-3 rounded-xl border border-slate-200 p-4 pr-10 sm:grid-cols-3">
+                  <div key={t.id} className="relative grid grid-cols-1 gap-3 rounded-xl border border-slate-200 p-4 pr-10 sm:grid-cols-3">
                     <button
                       type="button"
                       onClick={() => removeTransport(t.id)}

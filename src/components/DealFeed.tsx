@@ -45,7 +45,7 @@ export default function DealFeed() {
                   alt={d.destCity}
                   fill
                   sizes="(min-width:1024px) 33vw, 100vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
+                  className="photo-grade object-cover object-[center_65%] transition duration-700 group-hover:scale-105"
                 />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-brand-950/50 to-transparent" />

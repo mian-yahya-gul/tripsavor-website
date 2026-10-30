@@ -21,8 +21,8 @@ export default function SectionHeading({
           {t(eyebrow)}
         </span>
       )}
-      <h2 className="font-heading text-3xl font-bold text-brand-950 sm:text-4xl">{t(title)}</h2>
-      {description && <p className="mt-3 text-slate-600">{t(description)}</p>}
+      <h2 className="font-heading text-3xl font-extrabold tracking-tight text-brand-950 sm:text-4xl">{t(title)}</h2>
+      {description && <p className="mt-3 text-base text-slate-600 sm:text-lg">{t(description)}</p>}
     </div>
   );
 }

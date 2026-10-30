@@ -19,6 +19,8 @@ import { faqs } from "@/data/faqs";
 import { faqLd } from "@/lib/seo";
 import HeroSky from "@/components/HeroSky";
 import HeroWord from "@/components/HeroWord";
+import StatsBand from "@/components/StatsBand";
+import StickySearchBar from "@/components/StickySearchBar";
 
 export default function Home() {
   return (
@@ -40,9 +42,11 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto mt-10 max-w-5xl px-4 sm:px-6 lg:px-8">
-          <FlightSearchWidget />
+          <div className="rounded-3xl ring-1 ring-white/15 shadow-2xl shadow-black/30"><FlightSearchWidget /></div>
         </div>
       </section>
+
+      <StickySearchBar />
 
       <TrustStrip />
 
@@ -78,6 +82,8 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      <StatsBand />
 
       <section className="bg-brand-50 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -182,15 +182,7 @@ export default function GroupTicketsExplorer() {
             ) : (
               filteredRoutes.map((route) => (
                 <div key={route.route} className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-                  <div className="relative h-28 sm:h-32">
-                    <Image
-                      src={CATEGORY_PHOTO[route.category]}
-                      alt=""
-                      fill
-                      sizes="(min-width:1024px) 1100px, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-brand-950/85 via-brand-950/55 to-brand-950/20" />
+                  <div className="relative h-20 bg-gradient-to-r from-brand-950 via-brand-900 to-brand-700 sm:h-24">
                     <div className="relative flex h-full flex-wrap items-end justify-between gap-2 px-5 py-4">
                       <span className="flex items-center gap-3 font-heading text-sm font-bold text-white">
                         {airlineLogo(route.airline) && (

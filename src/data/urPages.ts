@@ -377,4 +377,9 @@ export const urPages: Record<string, string> = {
   Sialkot: "سیالکوٹ",
   Faisalabad: "فیصل آباد",
   "Replies in": "جواب کا وقت",
+  "Fly anywhere. Pay a fair price. Talk to a real person.": "کہیں بھی اڑیں۔ مناسب قیمت ادا کریں۔ اصل انسان سے بات کریں۔",
+  "Airports covered": "ایئرپورٹس شامل",
+  "Airlines compared": "ایئرلائنز کا موازنہ",
+  "Human support": "انسانی سپورٹ",
+  "Hidden fees": "چھپی فیس",
 };

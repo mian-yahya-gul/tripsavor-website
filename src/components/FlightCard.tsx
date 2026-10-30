@@ -61,7 +61,7 @@ export default function FlightCard({
   );
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-brand-200 hover:shadow-md">
+    <div className="fade-up rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-brand-200 hover:shadow-md">
       <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-4">
           <span className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-100 bg-white text-brand-600">
@@ -76,36 +76,36 @@ export default function FlightCard({
               <p className="font-heading text-sm font-bold text-brand-950">{offer.airline}</p>
               <span className="text-xs text-slate-400">{offer.flightNumber}</span>
               {tag && (
-                <span className="rounded-full bg-accent-100 px-2 py-0.5 text-[11px] font-semibold text-accent-600">
+                <span className="rounded-full bg-accent-100 px-2 py-0.5 text-xs font-semibold text-accent-600">
                   {tag}
                 </span>
               )}
             </div>
             <div className="mt-2 flex items-center gap-3 text-sm">
               <div className="text-center">
-                <p className="font-heading text-lg font-bold leading-none text-brand-950">{offer.departTime}</p>
-                <p className="mt-1 text-[11px] font-semibold text-slate-400">{offer.origin}</p>
+                <p className="font-heading text-xl font-bold leading-none text-brand-950">{offer.departTime}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-400">{offer.origin}</p>
               </div>
               <div className="flex min-w-[96px] flex-1 flex-col items-center">
-                <p className="text-[11px] text-slate-400">{formatDuration(offer.durationMinutes)}</p>
+                <p className="text-xs text-slate-400">{formatDuration(offer.durationMinutes)}</p>
                 <div className="relative my-1 h-px w-full bg-slate-300">
                   <Plane size={12} className="absolute -top-[6px] left-1/2 -translate-x-1/2 rotate-90 bg-white text-brand-500" />
                   {offer.stops > 0 && (
                     <span className="absolute left-1/4 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-accent-500" />
                   )}
                 </div>
-                <p className={`text-[11px] font-semibold ${offer.stops === 0 ? "text-emerald-600" : "text-accent-600"}`}>
+                <p className={`text-xs font-semibold ${offer.stops === 0 ? "text-emerald-600" : "text-accent-600"}`}>
                   {offer.stops === 0
                     ? "Non-stop"
                     : `1 stop${offer.layoverAirport ? ` · ${offer.layoverAirport}` : ""}`}
                 </p>
               </div>
               <div className="text-center">
-                <p className="font-heading text-lg font-bold leading-none text-brand-950">
+                <p className="font-heading text-xl font-bold leading-none text-brand-950">
                   {offer.arriveTime}
                   {offer.arrivesNextDay && <sup className="ml-0.5 text-[10px] text-accent-600">+1</sup>}
                 </p>
-                <p className="mt-1 text-[11px] font-semibold text-slate-400">{offer.destination}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-400">{offer.destination}</p>
               </div>
             </div>
             <p className="mt-1.5 text-xs text-slate-400">{offer.cabin}</p>
@@ -114,10 +114,10 @@ export default function FlightCard({
 
         <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end sm:justify-center">
           <div className="text-right">
-            <p className="font-heading text-xl font-extrabold text-brand-950">
+            <p className="font-heading text-2xl font-extrabold text-brand-950">
               <Price pkr={price} />
             </p>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-xs text-slate-400">
               {family.label}
               {offer.isEstimate ? " · estimated" : ""}
             </p>
@@ -131,7 +131,7 @@ export default function FlightCard({
             >
               Confirm on WhatsApp
             </a>
-            <p className="text-[11px] text-slate-400">Replies in {replyEstimate()} · no payment yet</p>
+            <p className="text-xs text-slate-400">Replies in {replyEstimate()} · no payment yet</p>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@ export default function FlightCard({
         <button
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="flex flex-1 items-center gap-1.5 px-5 py-2.5 text-xs font-semibold text-brand-700 transition hover:bg-brand-50"
+          className="flex flex-1 items-center gap-1.5 px-5 py-3 text-sm font-semibold text-brand-700 transition hover:bg-brand-50"
         >
           <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
           {open ? "Hide details" : "Flight details & fare options"}
@@ -150,7 +150,7 @@ export default function FlightCard({
             onClick={() => onToggleCompare(offer)}
             disabled={compareDisabled}
             aria-pressed={selected}
-            className={`flex items-center gap-1.5 border-l border-slate-100 px-4 py-2.5 text-xs font-semibold transition ${
+            className={`flex items-center gap-1.5 border-l border-slate-100 px-4 py-3 text-sm font-semibold transition ${
               selected
                 ? "bg-brand-600 text-white"
                 : compareDisabled
@@ -248,7 +248,7 @@ export default function FlightCard({
                         <Price pkr={fPrice} />
                       </span>
                     </div>
-                    <ul className="mt-1.5 space-y-0.5 text-[11px] text-slate-500">
+                    <ul className="mt-1.5 space-y-0.5 text-xs text-slate-500">
                       {f.perks.map((p) => (
                         <li key={p}>• {p}</li>
                       ))}
@@ -259,7 +259,7 @@ export default function FlightCard({
             </div>
           </div>
 
-          <p className="text-[11px] text-slate-400">
+          <p className="text-xs text-slate-400">
             Baggage, aircraft, layover and emissions figures are indicative estimates — our team
             confirms the exact fare rules on WhatsApp before you pay.
           </p>
@@ -280,7 +280,7 @@ function Detail({
 }) {
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-3">
-      <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+      <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
         {icon}
         {label}
       </p>

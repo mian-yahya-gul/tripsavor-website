@@ -12,7 +12,7 @@ export default function HeroWord() {
 
   useEffect(() => {
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setI((n) => (n + 1) % WORDS.length), 2400);
+    const id = setInterval(() => setI((n) => (n + 1) % WORDS.length), 3800);
     return () => clearInterval(id);
   }, []);
 

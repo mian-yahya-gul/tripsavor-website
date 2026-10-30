@@ -202,7 +202,7 @@ export default function ExploreGrid() {
                     alt={a.city}
                     fill
                     sizes="(min-width:1024px) 25vw, 50vw"
-                    className="object-cover transition duration-700 group-hover:scale-110"
+                    className="photo-grade object-cover transition duration-700 group-hover:scale-110"
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-950/75 to-transparent" />

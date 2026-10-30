@@ -17,4 +17,8 @@ export const CITY_PHOTOS: Record<string, string> = {
   UET: "/destinations/quetta.jpg",
   KDU: "/destinations/skardu.jpg",
   CDG: "/destinations/paris.jpg",
+  // Other UK airports reuse the London skyline rather than showing a blank card
+  LGW: "/destinations/london.jpg",
+  MAN: "/destinations/london.jpg",
+  BHX: "/destinations/london.jpg",
 };

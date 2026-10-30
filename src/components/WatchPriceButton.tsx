@@ -25,13 +25,13 @@ export default function WatchPriceButton(props: Props) {
       type="button"
       aria-pressed={watching}
       onClick={() => (watching ? removeWatch(id) : addWatch(props))}
-      className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-semibold transition ${
+      className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-semibold transition ${
         watching
-          ? "border-accent-500 bg-accent-100 text-accent-600"
+          ? "pop border-accent-500 bg-accent-100 text-accent-600"
           : "border-slate-200 text-brand-700 hover:border-brand-300 hover:bg-brand-50"
       }`}
     >
-      {watching ? <BellRing size={13} /> : <Bell size={13} />}
+      {watching ? <BellRing size={14} className="bell-ring" /> : <Bell size={13} />}
       {watching ? "Watching price" : "Watch price"}
     </button>
   );

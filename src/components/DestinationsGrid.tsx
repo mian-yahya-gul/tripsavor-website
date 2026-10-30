@@ -49,7 +49,7 @@ export default function DestinationsGrid() {
             alt={`${d.city}, ${d.country}`}
             fill
             sizes={i === 0 ? "(min-width:1024px) 50vw, 100vw" : "(min-width:1024px) 25vw, 50vw"}
-            className="object-cover transition duration-700 ease-out group-hover:scale-110"
+            className="photo-grade object-cover transition duration-700 ease-out group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-950/20 to-transparent" />
           <span className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-brand-800 opacity-0 transition duration-300 group-hover:opacity-100">

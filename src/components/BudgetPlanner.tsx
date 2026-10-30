@@ -156,7 +156,7 @@ export default function BudgetPlanner() {
                       alt={a.city}
                       fill
                       sizes="(min-width:640px) 22vw, 45vw"
-                      className="object-cover transition duration-700 group-hover:scale-110"
+                      className="photo-grade object-cover transition duration-700 group-hover:scale-110"
                     />
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-brand-600 to-brand-800" />

@@ -5,7 +5,7 @@ export default function HeroSky() {
       <div className="aurora aurora-a" />
       <div className="aurora aurora-b" />
       <div className="aurora aurora-c" />
-      <div className="absolute inset-0 opacity-[0.07] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:26px_26px]" />
+      <div className="absolute inset-0 opacity-[0.04] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:26px_26px]" />
       <svg
         className="absolute left-1/2 top-6 hidden w-[1100px] max-w-none -translate-x-1/2 md:block"
         viewBox="0 0 1100 220"
@@ -22,7 +22,7 @@ export default function HeroSky() {
           id="hero-arc"
           d="M30 195 L150 195 C 330 195, 340 25, 550 25 C 760 25, 770 195, 950 195 L1070 195"
           stroke="white"
-          strokeOpacity="0.25"
+          strokeOpacity="0.18"
           strokeWidth="1.5"
           strokeDasharray="2 9"
           strokeLinecap="round"
@@ -34,7 +34,7 @@ export default function HeroSky() {
             fill="#f8b94f"
             transform="scale(1.5)"
           >
-            <animateMotion dur="14s" repeatCount="indefinite" rotate="auto">
+            <animateMotion dur="20s" repeatCount="indefinite" rotate="auto">
               <mpath href="#hero-arc" />
             </animateMotion>
           </path>

@@ -34,12 +34,12 @@ export default function SupportLauncher() {
   }, [open]);
 
   return (
-    <div ref={rootRef} className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
+    <div ref={rootRef} className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-5 sm:right-5">
       {open && (
         <div
           role="dialog"
           aria-label="Contact support"
-          className="w-[calc(100vw-2.5rem)] max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-950/20"
+          className="w-[calc(100vw-2rem)] max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-brand-950/20"
         >
           <div className="flex items-start justify-between gap-3 bg-brand-950 p-4 text-white">
             <div>
@@ -195,9 +195,10 @@ export default function SupportLauncher() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label={open ? "Close support" : "Contact support"}
-        className="relative flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-950/30 transition hover:bg-brand-700"
+        className="relative flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-950/30 transition hover:bg-brand-700 sm:h-14 sm:w-14"
       >
-        {open ? <X size={22} /> : <Headset size={22} />}
+        {open ? <X size={20} className="sm:hidden" /> : <Headset size={20} className="sm:hidden" />}
+        {open ? <X size={22} className="hidden sm:block" /> : <Headset size={22} className="hidden sm:block" />}
         {!open && (
           <span
             className={`absolute right-0 top-0 h-3.5 w-3.5 rounded-full border-2 border-white ${
