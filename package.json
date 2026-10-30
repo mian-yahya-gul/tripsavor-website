@@ -10,7 +10,10 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "db:migrate:local": "wrangler d1 migrations apply tripsavor-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply tripsavor-db --remote",
+    "db:export": "wrangler d1 export tripsavor-db --remote --output"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.15",

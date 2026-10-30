@@ -1,46 +1,30 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "@/data/site";
+import { getDb } from "@/lib/db";
+import { createEnquiry, markEnquiryEmailed } from "@/lib/db/enquiries";
+import { validateLead, type LeadInput } from "@/lib/leadValidation";
 
 /**
  * Single delivery point for every "someone filled out a form" event on the
- * site (Contact page, Group Tickets request). Sends via Resend when
- * RESEND_API_KEY is set; otherwise logs server-side so nothing is silently
- * lost during local dev. This is the one place a real API key needs to be
+ * site (Contact page, Group Tickets request). Every submission is
+ * saved to D1 first (so it can never be lost), then emailed via Resend when
+ * RESEND_API_KEY is set. This is the one place a real API key needs to be
  * dropped in — see README for setup.
  */
 
-type LeadPayload = {
-  type: "contact" | "group-tickets" | "callback";
-  name: string;
-  email: string;
-  phone?: string;
-  message?: string;
-  details?: Record<string, string>;
-};
-
-function isValid(body: unknown): body is LeadPayload {
-  if (!body || typeof body !== "object") return false;
-  const b = body as Record<string, unknown>;
-  return (
-    (b.type === "contact" || b.type === "group-tickets" || b.type === "callback") &&
-    typeof b.name === "string" &&
-    b.name.trim().length > 0 &&
-    typeof b.email === "string"
-  );
-}
-
-const SUBJECTS: Record<LeadPayload["type"], string> = {
+const SUBJECTS: Record<LeadInput["type"], string> = {
   contact: "New contact form message from",
   "group-tickets": "New group ticket request from",
   callback: "New callback request from",
 };
 
-function subjectFor(payload: LeadPayload) {
+function subjectFor(payload: LeadInput) {
   return `${SUBJECTS[payload.type]} ${payload.name}`;
 }
 
-function textFor(payload: LeadPayload) {
+function textFor(payload: LeadInput, ref?: string) {
   const lines = [
+    ref ? `Reference: ${ref}` : null,
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     payload.phone ? `Phone: ${payload.phone}` : null,
@@ -52,7 +36,7 @@ function textFor(payload: LeadPayload) {
   return lines.join("\n");
 }
 
-async function sendViaResend(payload: LeadPayload) {
+async function sendViaResend(payload: LeadInput, ref?: string) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return { delivered: false, reason: "RESEND_API_KEY not set" };
 
@@ -71,7 +55,7 @@ async function sendViaResend(payload: LeadPayload) {
       to: [to],
       reply_to: payload.email,
       subject: subjectFor(payload),
-      text: textFor(payload),
+      text: textFor(payload, ref),
     }),
   });
 
@@ -90,25 +74,35 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON body" }, { status: 400 });
   }
 
-  if (!isValid(body)) {
-    return NextResponse.json({ ok: false, error: "Missing required fields" }, { status: 400 });
+  const parsed = validateLead(body);
+  if ("error" in parsed) {
+    return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+  }
+  const { lead } = parsed;
+
+  // 1) Persist. A storage failure must not lose the lead if email still works.
+  let db: D1Database | null = null;
+  let ref: string | undefined;
+  try {
+    db = getDb();
+    ref = await createEnquiry(db, lead);
+  } catch (err) {
+    console.error("[api/lead] storage failed", { type: lead.type, error: err instanceof Error ? err.message : "unknown" });
   }
 
+  // 2) Notify by email (best effort when stored; required when not).
+  let delivered = false;
   try {
-    const result = await sendViaResend(body);
-    if (!result.delivered) {
-      // No API key configured yet — keep the lead visible in server logs
-      // instead of dropping it silently.
-      console.warn("[api/lead] RESEND_API_KEY not set — lead logged, not emailed:", {
-        type: body.type,
-        name: body.name,
-        email: body.email,
-        phone: body.phone,
-      });
-    }
-    return NextResponse.json({ ok: true, delivered: result.delivered });
+    delivered = (await sendViaResend(lead, ref)).delivered;
+    if (delivered && db && ref) await markEnquiryEmailed(db, ref).catch(() => {});
   } catch (err) {
-    console.error("[api/lead] delivery failed", err);
-    return NextResponse.json({ ok: false, error: "Delivery failed" }, { status: 502 });
+    console.error("[api/lead] email failed", { type: lead.type, ref, error: err instanceof Error ? err.message : "unknown" });
   }
+
+  if (!ref && !delivered) {
+    // Neither stored nor emailed. Log type only — never customer details.
+    console.warn("[api/lead] lead neither stored nor emailed", { type: lead.type });
+    return NextResponse.json({ ok: false, error: "Could not record your request" }, { status: 502 });
+  }
+  return NextResponse.json({ ok: true, delivered, ref });
 }
