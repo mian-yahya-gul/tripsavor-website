@@ -26,6 +26,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        image="/heroes/contact.jpg"
         eyebrow="Contact Us"
         title="We're here to help"
         description="Reach our support team by phone, WhatsApp, or the form below — most queries are answered within the hour."

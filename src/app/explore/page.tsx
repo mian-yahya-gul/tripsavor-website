@@ -12,6 +12,7 @@ export default function ExplorePage() {
   return (
     <>
       <PageHero
+        image="/heroes/explore.jpg"
         eyebrow="Explore"
         title="Where can your budget take you?"
         description="Pick a starting city, a month, and a budget — we'll rank every destination we cover by estimated fare."

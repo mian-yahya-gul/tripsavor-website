@@ -14,6 +14,7 @@ export default function ManageBookingPage() {
   return (
     <>
       <PageHero
+        image="/heroes/manage.jpg"
         eyebrow="Manage Booking"
         title="Retrieve your itinerary"
         description="Enter your booking reference and last name exactly as they appear on your e-ticket."

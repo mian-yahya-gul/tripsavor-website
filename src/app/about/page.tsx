@@ -51,6 +51,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        image="/heroes/about.jpg"
         eyebrow="About TripSavor"
         title="Making air travel simple, honest, and affordable"
         description="We started TripSavor to fix a frustrating booking experience — confusing fares, unreachable support, and surprise fees."

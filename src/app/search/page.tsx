@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeftRight, Pencil } from "lucide-react";
+import { CITY_PHOTOS } from "@/data/cityPhotos";
 import PageHero from "@/components/PageHero";
 import FlightResults from "@/components/FlightResults";
 import FlightResultsBrowser from "@/components/FlightResultsBrowser";
@@ -122,6 +123,7 @@ export default async function SearchPage({
   return (
     <>
       <PageHero
+        image={CITY_PHOTOS[destination] ?? "/heroes/manage.jpg"}
         eyebrow="Search Results"
         title={`${cityFor(origin)} → ${cityFor(destination)}`}
         description={

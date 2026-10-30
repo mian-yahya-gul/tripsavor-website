@@ -12,6 +12,7 @@ export default function LoginPage() {
   return (
     <>
       <PageHero
+        image="/heroes/login.jpg"
         eyebrow="Your Account"
         title="SignUp / Login"
         description="Save your travelers' details and manage all your bookings in one place."

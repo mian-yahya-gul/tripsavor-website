@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Check, Copy, Plane, UtensilsCrossed } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
@@ -62,8 +63,9 @@ export default function GroupTicketsExplorer() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-950 via-brand-900 to-brand-700 pb-16 pt-8">
-        <div className="pointer-events-none absolute inset-0 opacity-20 [background:radial-gradient(circle_at_20%_20%,white,transparent_35%),radial-gradient(circle_at_80%_0%,white,transparent_30%)]" />
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-brand-950 via-brand-900 to-brand-700 pb-16 pt-8">
+        <Image src="/heroes/group.jpg" alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-950/85 via-brand-950/60 to-brand-900/90" />
 
         <div className="relative mx-auto max-w-7xl overflow-x-auto px-4 pb-8 sm:px-6 lg:px-8">
           <div className="flex w-max items-center gap-0.5 divide-x divide-white/10 sm:w-full sm:justify-between">

@@ -13,6 +13,7 @@ export default function FaqsPage() {
   return (
     <>
       <PageHero
+        image="/heroes/faqs.jpg"
         eyebrow="Support"
         title="Frequently asked questions"
         description="Can't find what you're looking for? Reach out on our Contact page and we'll help directly."
