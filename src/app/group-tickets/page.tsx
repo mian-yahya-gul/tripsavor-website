@@ -9,7 +9,7 @@ import { siteConfig } from "@/data/site";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 export const metadata = pageMetadata({
-  title: "Group Flight Tickets for Umrah, UAE, KSA, UK & More",
+  title: "Group Flight Tickets: Umrah, UAE, KSA & UK",
   description:
     "Discounted group flight fares for 10+ travellers: Umrah and Hajj groups, UAE, Saudi Arabia, UK, Muscat, Qatar and Bahrain. Seats held together with a dedicated coordinator.",
   path: "/group-tickets",

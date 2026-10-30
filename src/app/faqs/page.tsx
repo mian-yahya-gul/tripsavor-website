@@ -6,7 +6,7 @@ import CtaBanner from "@/components/CtaBanner";
 import { faqs } from "@/data/faqs";
 
 export const metadata = pageMetadata({
-  title: "Flight Booking FAQs: Payments, Refunds, Changes & Support",
+  title: "Flight Booking FAQs: Payments & Refunds",
   description:
     "Clear answers about booking flights from Pakistan with TripSavor: payment methods, cancellations, refunds, hidden fees, e-tickets and customer support.",
   path: "/faqs",

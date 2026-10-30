@@ -1,3 +1,4 @@
+import Image from "next/image";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
@@ -82,12 +83,30 @@ export default function ContactPage() {
 
           <div className="lg:col-span-2">
             <h2 className="mb-4 font-heading text-xl font-bold text-brand-950">Our Office</h2>
-            <div className="flex h-56 items-center justify-center rounded-2xl bg-brand-100 text-brand-700">
-              <div className="text-center">
-                <MapPin size={28} className="mx-auto" />
-                <p className="mt-2 text-sm font-semibold">Islamabad, Pakistan</p>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteConfig.address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block h-56 overflow-hidden rounded-2xl bg-brand-100"
+            >
+              <Image
+                src="/destinations/islamabad.jpg"
+                alt="Islamabad, where the TripSavor office is based"
+                fill
+                sizes="(min-width:1024px) 40vw, 100vw"
+                className="object-cover transition duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-950/80 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4 text-white">
+                <div>
+                  <MapPin size={20} className="text-accent-400" />
+                  <p className="mt-1 font-heading text-base font-bold">Islamabad, Pakistan</p>
+                </div>
+                <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-brand-900">
+                  Get directions
+                </span>
               </div>
-            </div>
+            </a>
             <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 p-5 text-sm text-slate-600">
               <p className="flex items-start gap-2">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-brand-600" />

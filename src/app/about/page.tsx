@@ -8,7 +8,7 @@ import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 
 export const metadata = pageMetadata({
-  title: "About TripSavor: Pakistan's Human-Assisted Flight Booking Agency",
+  title: "About TripSavor: Human-Assisted Flight Booking",
   description:
     "Meet TripSavor: a Pakistan-based travel agency offering transparent fares, flexible payments including cash on delivery, and real human support by phone and WhatsApp.",
   path: "/about",

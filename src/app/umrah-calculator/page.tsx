@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import UmrahCalculator from "@/components/UmrahCalculator";
 
 export const metadata = pageMetadata({
-  title: "Umrah Package Calculator: Visa, Flights, Hotels & Transport",
+  title: "Umrah Package Calculator: Visa, Hotels & Flights",
   description:
     "Build your own Umrah package and see a live cost estimate for the visa, group flights, Makkah and Madinah hotels and private transport, all in one place.",
   path: "/umrah-calculator",

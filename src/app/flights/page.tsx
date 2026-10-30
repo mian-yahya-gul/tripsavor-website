@@ -6,7 +6,7 @@ import { ORIGINS, allRoutes } from "@/data/routes";
 import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Cheap Flights from Pakistan: Karachi, Lahore & Islamabad Routes",
+  title: "Cheap Flights from Karachi, Lahore & Islamabad",
   description:
     "Browse popular international routes from Karachi, Lahore and Islamabad. Compare indicative fares, find the cheapest month and book with 24/7 human support.",
   path: "/flights",
